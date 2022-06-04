@@ -1,0 +1,37 @@
+\part{BLOQUE 1}
+\section{Introducción}
+En este documento servirá de memoria de la práctica de IA para videojuegos. En este se expondrán los distintos pasos y decisiones tomadas para superar los distintos apartados (Obligatorios y Opcionales) necesarios para implementar elementos asociados a movimientos de personajes, formaciones y colisiones.
+
+Se hará un repaso por los distintos Software y Hardware utilizados en el desarrollo, Algoritmos implementados, Interfaces desarrolladas, jugabilidad e implementación de los movimientos. Todos estos apartados se complementarán con las partes más relevantes del código si fuera necesario, e imágenes que permitan entender mejor el documento.
+
+\subsection{Entorno de trabajo}
+Para el desarrollo de este proyecto se ha creado un repositorio Git( \href{https://gitlab.com/Serms1999/ia_juegos_2022}{Repositorio IA De Juegos})  a modo de herramienta de Control de Versiones, permitiendo trabajar de manera paralela en las distintas funcionalidades del proyecto. El desarrollo de la práctica se ha decidido hacer con el Software Unity, un motor de videojuegos multiplataforma.
+
+En el repositorio ya nombrado se ha creado un proyecto Unity en su versión 2020.3.10f1, utilizando la plantilla Universal Render Pipeline. El directorio donde encontramos todo el contenido interesante de la práctica es el directorio \textit{Assets} que contiene a su vez los siguientes directorios: 
+\begin{itemize}
+    \item \textbf{Materials:} Contiene los materiales usados para los prefabs de las escenas.
+    \item \textbf{Prefabs:} En esta carpeta se tienen los distintos elementos gráficos utilizados, como por ejemplo, los dos tipos de personajes (NPC y Player) y en futuro contendrá los tipos de terreno, bases, etc.
+    \item \textbf{Scenes:} En esta carpeta se tienen distintas escenas que han sido implementadas para probar todas las funcionalidades implementadas. Mas adelante se comentará mas en detalle las distintas escenas.
+    
+    \item \textbf{Scripts:} Este directorio consta de varios subdirectorios que organizan todo lo implementado. Por ejemplo distinguimos entre steerings delegados y básicos, formaciones, colisiones y scripts de control del juego, cámaras y unidades.
+    \item \textbf{MazeGenerator:} Material necesario para implementar las escenas de evaluación dadas por el profesor.
+\end{itemize}
+
+El proyecto ha sido desarrollado en tres máquinas distintas:
+\begin{itemize}
+    \item \textbf{Máquina 1:} Ordenador sobremesa con Sistema operativo Windows 10, 16 GB memoria RAM, Intel core I3 8100 y tarjeta gráfica GTX 1050ti.
+    \item \textbf{Máquina 2:} Ordenador portatil MacBook pro con 16 GB de memoria Ram y procesador M1Pro.
+     \item \textbf{Máquina 2:} Ordenador portatil MacBook Air con 16 GB de memoria Ram y procesador M1.
+\end{itemize}
+
+\subsection{Manual de usuario}
+Si se desea probar cualquiera de los escenarios desplegados en el vídeo, solo se tendrán que seguir los siguientes pasos:
+\begin{enumerate}
+    \item Iniciar Unity y abrir el proyecto.
+    \item Dirigirse a \texttt{Project}/\texttt{Assets}/ \texttt{Scenes} y abrir la escena a probar. 
+    \item En la parte derecha de la pantalla se pueden cambiar valores a placer para comprobar el comportamiento del proyecto.
+\end{enumerate}
+Una vez iniciada la escena si es el caso de una escena con player de color verde, este se podrá manejar con las teclas: W (Mover hacia arriba), A (Movimiento Izquierda), S (Mover hacia abajo), D (Mover hacia derecha). Además podremos seleccionar los personajes con el click izquierdo (Cambiarán a color azul) y si pinchamos en el suelo estos se moverán a esta zona.\\
+
+Por último tendremos la opción de Formar en Cuña presionando la tecla \textit{F} o presionando \textit{C} para formar en columna una vez tenemos personajes seleccionados.
+

@@ -1,0 +1,11 @@
+\subsubsection{Seek}
+
+Este steering calcula un movimiento en línea recta desde la posición del agente hasta la posición del agente objetivo, representado por la variable \texttt{target}.
+
+Lo primero a realizar será calcular la distancia entre los agentes y en el caso de que sea menor que el radio interior del objetivo  frenamos.
+
+\lstinputlisting[linerange=22-30, firstnumber=22]{\ScriptsPath/Steering/Basic/Seek.cs}
+
+En el caso de que el objetivo esté a una distancia mayor que el radio interior del agente se usa la máxima aceleración en la dirección del desplazamiento.
+
+\lstinputlisting[linerange=32-38, firstnumber=32]{\ScriptsPath/Steering/Basic/Seek.cs}

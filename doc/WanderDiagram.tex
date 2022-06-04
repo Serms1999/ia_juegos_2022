@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+    \node[isosceles triangle, draw, scale=0.7, color= BurntOrange, fill= BurntOrange!70] (1) {};
+    \node[circle, draw, minimum size=2cm, dashed] (2) [right = 2cm of 1] {};
+    \draw[fill=green!20] (3.35,0) --  +(60:1) arc(60:-60:1) -- cycle;
+    \node (3) at (4, 0.75) {$\bigoplus$};
+    \node (4) at (1.5, -0.2) {\tiny\texttt{wanderOffset}};
+    \node (5) at (3.7, -0.3) {\tiny\texttt{wanderRadius}};
+    \node (6) at (5.5, 0.2) {\tiny\texttt{wanderRate}};
+    
+    \draw[dashed] (1) -- (2.center);
+    \draw[-stealth] (0.67, 0.12) -- (2.4, 0.42);
+    \draw[stealth-stealth] (2.435, -0.4) -- (2.center);
+    \draw[-stealth] (6.west) -- (4.4, 0.2);
+\end{tikzpicture}

@@ -1,0 +1,37 @@
+\section{Detección de colisiones}
+
+En este apartado se explicará como hemos creado un sistema de detección de colisiones para nuestros agentes. 
+
+Lo primero que se ha hecho es definir las clases que nos ayudarán tanto a detectar la colisión, como a almacenarla. Para almacenar una colisión usaremos la clase \texttt{Collision} que es una estructura que contiene dos vectores.
+
+\lstinputlisting[linerange={3-6, 31-31}, numbers=none]{\ScriptsPath/Steering/Colisiones/Collision.cs}
+
+Estos vectores registran:
+\begin{itemize}
+    \item \texttt{\_position}: la posición en la que se ha registrado la colisión.
+    \item \texttt{\_normal}: el vector normal a la superficie donde se ha registrado la colisión en el punto \texttt{\_position}.
+\end{itemize}
+
+Cada agente posee una cantidad variable de bigotes que usa para detectar las colisiones con muros. Los bigotes son vectores que trazamos desde el personaje hacia delante o con una cierta rotación con el fin de detectar si están colisionando con algún muro del escenario. 
+
+Para crear estos bigotes primero deberemos definir el esquema que seguirán. Si optamos por tener un número par de ellos, se crearán simétricos respecto del vector que mira hacia delante del personaje. Si por otro lado tenemos un número impar, generaremos esos mismos y además otro que será el de hacia delante, el cual tendrá una longitud superior al resto.
+
+ \lstinputlisting[linerange=83-118, firstnumber=83]{\ScriptsPath/Steering/NPC/Agent.cs}
+
+Ahora explicaremos el steering de Wall Avoidance. Este steering genera un comportamiento de repulsión hacia los objetos que se encuentra en el camino.
+
+Para lograr esto lo primero que hace es comprobar que existe una colisión.
+
+ \lstinputlisting[linerange=28-29, firstnumber=28]{\ScriptsPath/Steering/Delegados/WallAvoidance.cs}
+ 
+ Esta función devuelve una colisión en caso de que el personaje se encuentre algún obstáculo o \texttt{null} si no, con este último el steering no hace nada.
+ 
+ Para comprobar la colisión, recorremos los bigotes de izquierda a derecha y comprobamos si existe colisión con alguno de ellos.
+ 
+ Una vez tenemos la colisión pertinente (en caso de que exista), calcularemos el movimiento de repulsión mediante un personaje auxiliar. Este movimiento vendrá dado por el vector normal de la colisión y una distancia a la que esquivar.
+ 
+  \lstinputlisting[linerange=43-43, firstnumber=43]{\ScriptsPath/Steering/Delegados/WallAvoidance.cs}
+  
+  Por último delegamos en Seek para obtener el movimiento.
+  
+   \lstinputlisting[linerange=45-46, firstnumber=45]{\ScriptsPath/Steering/Delegados/WallAvoidance.cs}

@@ -1,0 +1,48 @@
+
+\section{LRTA*}
+
+En este apartado vamos a explicar el funcionamiento y como hemos implementado el algortimo \texttt{LRTA} usado para logar el Steering de \texttt{PathFinding}. Para esto hemos utilizado los siguientes componentes. 
+
+\subsection{Grid y Nodes}
+Para dividir el espacio de nuestro terreno hemos utilizado un \texttt{grid} de tamaño total(ocupando el tablero de juego por completo). Este esta formado de nodos definidos con la clase \texttt{Node}. Esto disponen de los siguientes parámetros. Para paremetrizar los distintos costes, su posición en el mundo y respecto al grid, y por ultimo si es pasable o no.
+\\
+
+\lstinputlisting[linerange=8-13, firstnumber=8]{\ScriptsPath/Steering/PathFinding/Grid/Node.cs}
+ 
+ Viendo ya esto, la parte interesante la tendremos en el \texttt{Grid}. En este se calcula el tamaño de los nodos con el mínimo como divisor de las dimensiones del tablero.\\
+ Teniendo ya el tablero con sus \texttt{Node}, solo nos queda comprobar si ese nodo es pasable o no, para esto usaremos un cubo "invisible", el cual lo recorreremos por todo el \texttt{Grid} comprobando los tipos de colisiones que tenga con el entorno. A continuación se puede ver como tratamos las colisiones:\\
+ 
+ \lstinputlisting[linerange=147-154, firstnumber=147]{\ScriptsPath/Steering/PathFinding/Grid/Grid.cs}
+ 
+ \subsection{Heurísticas}
+ Una vez tenemos el grid creado e inicializado, nos quedará inicializar los costes heurísitocos de cada nodo. Para esto hemos definido 3 tipos de heurísticas distintas:
+ \begin{enumerate}
+     \item\texttt{Chebychev} Será el máximo entre la distancia de las coordenadas x e y. 
+     \lstinputlisting[linerange=10-13, firstnumber=10]{\ScriptsPath/Steering/PathFinding/Heuristic/Chebychev.cs}
+     
+     \item\texttt{Manhattan} La suma de las distancias.
+     \lstinputlisting[linerange=10-13, firstnumber=10]{\ScriptsPath/Steering/PathFinding/Heuristic/Manhattan.cs}
+     
+      \item\texttt{Euclidea} La distancia entre los nodos.
+     \lstinputlisting[linerange=9-12, firstnumber=9]{\ScriptsPath/Steering/PathFinding/Heuristic/Euclidea.cs}
+     
+ \end{enumerate}
+ 
+ \subsection{A*}
+ Teniendo ya el \texttt{Grid} creado e inicializado por completo. Nuestro siguiente paso es el algoritmo A*. Este consiste en recorrer la lista de vecinos para saber cual es el que tiene coste menor. Calculándose este coste en base al coste heurístico de sus propios vecinos, obteniendo así en una lista el orden inverso del camino mas corto al objetivo.
+ 
+ \subsection{LRTA*}
+ El algoritmo \texttt{LRTA*} se basa en la utilización del propio algoritmo A* (anteriormente comentado). Pero funcionando sobre un subespacio de busqueda. Este sigue los siguientes pasos:
+ \begin{enumerate}
+     \item Inicializamos el nodo inicial y generamos el espacio de busqueda. 
+     \item Calculamos el camino mas corto al objetivo utilizando el algoritmo A*.
+     \item Una vez nos salgamos del espacio de busqueda, volvemos a generar el espacio de busqueda.
+     \item Repetimos hasta que llegamos al objetivo.
+ \end{enumerate} 
+
+Este algoritmo tiene un problema, el tiempo que puede llegar a obtener el camino ya que, no es optimo al tener ciclos. Este algoritmo hará que retrocedamos si nos encontramos en el camino nodos con un coste mayor que retrocedes en ese subespacio, creando así un ciclo hasta que aunmente el coste heurístico de retroceder.
+
+\section{Enlaces}
+En los siguientes enlaces se podrá ver y descargar el video : \\
+https://umubox.um.es/index.php/s/PS999tUHBMTbtA1
+ 

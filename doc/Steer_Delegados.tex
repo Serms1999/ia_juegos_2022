@@ -1,0 +1,13 @@
+\subsection{Steerings delegados}
+
+En este apartado se comentarán las implementaciones de los distintos steerings delegados. Estos steering en vez de heredar directamente de la clase \texttt{SteeringBehavior} heredan de alguno de los steerings básicos.
+
+Su comportamiento se basa en crear agentes auxiliares con posición u orientación a conveniencia que podamos usar como objetivos con el fin de delegar en steerings básicos. Los steerings delegados implementados son: Pursue, Face, Wander y Path Following sin pathOffset.
+
+\input{steerings/delegados/Face}
+
+\input{steerings/delegados/PathFollowing}
+
+\input{steerings/delegados/Pursue}
+
+\input{steerings/delegados/Wander}

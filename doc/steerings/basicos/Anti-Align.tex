@@ -1,0 +1,5 @@
+\subsubsection{Anti-Align}
+
+Este steering consiste en realizar el movimiento contrario que el steering anterior. En este caso el personaje tiene que tener una rotación opuesta a la del objetivo, es por esto que el único cambio a realizar sobre el align será sumar \SI[parse-numbers=false]{\pi}{\radian} (\SI{180}{\degree}) a su orientación y alinear para este valor.
+
+\lstinputlisting[linerange=24-28, firstnumber=24]{\ScriptsPath/Steering/Basic/AntiAlign.cs}

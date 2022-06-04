@@ -1,0 +1,31 @@
+\subsubsection{Wander}
+
+Este steering hace que el agente que lo implementa se mueva erráticamente por el escenario.
+
+Para lograr este comportamiento haremos uso de una estructura como la que se puede ver en la Fig. \ref{fig:wander}. Esta estructura está compuesta por una circunferencia sitiada a una distancia del agente.
+
+\begin{figure}[H]
+    \centering
+    \input{WanderDiagram}
+    \caption{Esquema del steering Wander}
+    \label{fig:wander}
+\end{figure}
+
+Como vemos existen 3 parámetros que podemos modificar para cambiar el comportamiento de este steering.
+\begin{itemize}
+    \item \texttt{wanderOffset}: la distancia entre el centro de la circunferencia y el agente.
+    \item \texttt{wanderRadius}: el radio de la circunferencia.
+    \item \texttt{wanderRate}: el rango de ángulos que podemos generar automáticamente.
+\end{itemize}
+ 
+La implementación de este steering consiste en generar un punto en la circunferencia, que se encuentre en el rango de ángulos $(-\texttt{wanderRate}, \texttt{wanderRate})$. Con esto conseguimos que el agente se vaya desplazando hacia delate hacia puntos aleatorios.
+
+La distancia entre el agente y la circunferencia modificará como de brusco es el giro y, por tanto, el agente avanzará menos y cambiará más de trayectoria.
+
+Lo primero que hacemos es calcular la posición de la circunferencia en la que estará el punto.
+
+\lstinputlisting[linerange=46-52, firstnumber=46]{\ScriptsPath/Steering/Delegados/Wander.cs}
+
+A continuación, calculamos el centro de la circunferencia y delegamos en el Face.
+
+\lstinputlisting[linerange=54-61, firstnumber=54]{\ScriptsPath/Steering/Delegados/Wander.cs}

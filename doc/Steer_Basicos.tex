@@ -1,0 +1,53 @@
+\section{Escenarios}
+Para comprobar el correcto funcionamiento de todo lo implementado se han creado varios escenarios. Por un lado se han utilizado tres escenarios proporcionados por el profesor, que están en la carpeta \textit{\_escenasEvaluacion} donde se ha utilizado uno para comprobar que el PathFindingLrta funciona correctamente, por otro lado el escenario creado para wall Avoidance con paredes y esquinas de varios ángulos, donde tal y como se comentará en la exposición en las esquinas hay veces donde a los personajes les cuesta salir. Por último el escenario de formaciones que se utiliza para comprobar que las formaciones se hacen correctamente y en el caso de formar al lado de esquinas o paredes, que los personajes no las atraviesan.\\
+
+En cuanto a escenarios creados por nosotros, tenemos dos escenarios para probar steerings:
+\begin{itemize}
+    \item SteeringsBasicos: este escenario tendrá un personaje por cada steering básico implementado y permitirá manejar el player para poder ver cómo se adapta cada NPC a la posición del player según el script que contenga.
+    \item SteeringsDelegados: Este escenario es igual que el anterior nada más que tendrá un NPC por cada Steering delegado.
+\end{itemize}
+El escenario \textit{WallAvoidance} consta de una pared y un NPC y un player, y ha servido para probar el comportamiento de wallAvoidance, aunque el de evaluación ha sido el que más se ha utilizado ya que tenía esquinas de distintos ángulos que permiten ver en mayor profundidad cómo se comporta este. \\
+
+Por último tenemos la escena de \textit{PathFollow} que consta de un camino creado a base de waypoints donde se verá cómo de bien funciona dicho script.
+\section{Steerings}
+
+En este apartado veremos como implementar un sistema de steerings para un conjunto de escenas controlado. También existirán opciones como hacer formaciones.
+
+Un sistema de steering es un sistema encargado de calcular un movimiento de respuesta a los agentes en función de la información que tienen sobre el entorno que les rodea. Los steerings se pueden combinar entre ellos de forma que obtengamos comportamientos distintos. Por ejemplo, podemos hacer que un agente persiga a otro, pero a la vez trate de evitar obstáculos.
+
+En nuestro caso se han implementado tanto steerings básicos acelerados como steerings delegados. Estos tipos de steering heredan de la clase \texttt{SteeringBehavior}, que contiene los elementos básicos que deben tener.
+
+\begin{itemize}
+    \item Atributos:
+    \begin{itemize}
+        \item \texttt{nameSteering}: el nombre del steering.
+        \item \texttt{target}: representa al agente sobre el que se toman las referencias, como distancia hasta él o diferencia en orientación.
+        \item \texttt{weight}: el peso que tiene este steering a la hora de combinarse con otros (se usa en los árbitros ponderados). 
+    \end{itemize}
+    \item El método \texttt{GetSteering(Agent agent)} que devolverá el steering calculado en cuestión.
+\end{itemize}
+
+Para modelizar el comportamiento que devuelto un steering behavior se usa una estructura \texttt{Steering}, que consta de dos componentes.
+
+\begin{itemize}
+    \item \texttt{angular}: es la componente que modifica el comportamiento del agente desde el punto de vista de la orientación. Generalmente lo tomamos como aceleración angular, pero podría representar otra magnitud dependiendo del comportamiento que busquemos. Es un valor escalar.
+    \item \texttt{linear}: es la componente que modifica el comportamiento del agente en cuanto a la posición. Normalmente representa la aceleración lineal del personaje, pero puede representar una velocidad también u otra magnitud a voluntad. Es una componente vectorial.
+\end{itemize}
+
+\subsection{Steerings básicos}
+
+Los Steerings básicos acelerados que se han implementado son: Seek, Flee, Arrive, Align, Anti-Align y Velocity Matching. Veremos uno por uno cómo se han implementado y las particularidades que puedan tener cada uno de ellos.
+
+\input{steerings/basicos/Seek}
+
+\input{steerings/basicos/Flee}
+
+\input{steerings/basicos/Arrive}
+
+\input{steerings/basicos/Align}
+
+\input{steerings/basicos/Anti-Align}
+
+\input{steerings/basicos/VelocityMatching}
+
+

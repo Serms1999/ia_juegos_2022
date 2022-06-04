@@ -1,0 +1,39 @@
+\subsubsection{Path Following}
+
+Este steering hace que el agente siga un camino marcado por puntos (nodos).
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.25\textwidth}{!}{
+        \input{PathFollowingDiagram}
+    }
+    \caption{Esquema de un camino marcado}
+    \label{fig:pathFollowing}
+\end{figure}
+
+Hay varias formas de recorrer el mismo camino:
+\begin{enumerate}
+    \item Llegar desde el inicio hasta el final y permanecer ahí.
+    \item Llegar desde el inicio hasta el final y darse la vuelta, volviendo a hacer el camino de forma inversa, y continuar así.
+    \item Hacer el camino de forma cíclica, es decir, una vez se llega al final el personaje vuelve al nodo de inicio directamente y vuelve a repetir el camino. Esta forma de hacer el recorrido sólo es posible en camino cerrados.
+\end{enumerate}
+
+En la Fig. \ref{fig:pathFollowing} se ilustra como se define un camino, como una serie de nodos unidos. Opcionalmente hay un camino que une principio con final, esto se ilustra con un línea discontinua.
+
+Para implementar este steering se han creado dos clases, \texttt{Path} y \texttt{Waypoint}. La clase \texttt{Waypoint} es una estructura que tiene información sobre la posición y el radio de un nodo del camino. El radio nos indica si estamos lo suficientemente cerca del nodo como para considerar si ya lo hemos visitado.
+
+Por otro lado, la clase \texttt{Path} tiene guardados todos los nodos (waypoints) del camino. También tiene información sobre el orden para recorrerlo o si el camino es circular.
+
+El steering en sí tiene una implementación sencilla. Lo primero es comprobar si ya hemos llegado al nodo hacia el que nos dirigíamos, en caso afirmativo pasamos al siguiente.
+
+\lstinputlisting[linerange=33-40, firstnumber=33]{\ScriptsPath/Steering/Delegados/PathFollowing.cs}
+
+Lo siguiente es que hacer dependiendo de la forma de recorrer el camino, solo se aplica en los nodos extremos del camino.
+
+\lstinputlisting[linerange=42-74, firstnumber=42]{\ScriptsPath/Steering/Delegados/PathFollowing.cs}
+
+Por último, una vez tenemos el nodo al que ir, creamos un agente auxiliar y delegamos en el Seek.
+
+\lstinputlisting[linerange=79-87, firstnumber=79]{\ScriptsPath/Steering/Delegados/PathFollowing.cs}
+
+

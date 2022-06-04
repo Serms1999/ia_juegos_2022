@@ -1,0 +1,5 @@
+\subsubsection{Face}
+
+Este steering hace que el agente mire en dirección a su objetivo. Lo primero que hacemos es calcular el vector que une a ambos agentes, con ello podemos obtener la dirección en la que se encuentra el otro agente. El siguiente paso es asignar esa orientación a un agente auxiliar y delegar en Align. En caso de que los agentes estén juntos no se realiza ninguna rotación.
+
+\lstinputlisting[linerange=22-39, firstnumber=22]{\ScriptsPath/Steering/Delegados/Face.cs}

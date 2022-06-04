@@ -1,0 +1,20 @@
+\subsubsection{Pursue}
+
+Este steering trata de mejorar el comportamiento del Seek. El Seek trata de llegar a la posición de un agente objetivo, pero si este objetivo está en movimiento será difícil de alcanzar puesto que cuando que lleguemos a su posición ya no estará ahí.
+
+Nuestro objetivo es predecir donde estará en un futuro y desplazarnos a ese punto. Así si nuestra predicción era acertada llegaremos a ese punto simultáneamente y por tanto lo alcanzaremos. Este comportamiento se ilustra en la Fig. \ref{fig:pursue}.
+
+\begin{figure}[H]
+    \centering
+    \input{PursueDiagram}
+    \caption{Esquema del steering Pursue}
+    \label{fig:pursue}
+\end{figure}
+
+Lo primero que hacemos es calcular el tiempo sobre el que vamos a realizar la predicción del movimiento.
+
+\lstinputlisting[linerange=22-35, firstnumber=22]{\ScriptsPath/Steering/Delegados/Pursue.cs}
+
+Después creamos un agente auxiliar y le asignamos la posición desplazada con la predicción.
+
+\lstinputlisting[linerange=37-47, firstnumber=47]{\ScriptsPath/Steering/Delegados/Pursue.cs}

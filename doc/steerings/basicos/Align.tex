@@ -1,0 +1,13 @@
+\subsubsection{Align}
+
+Este steering hace que un agente mire en la misma dirección que otro, sin prestar atención a ningún aspecto de la posición del agente. Para hacer esto usa la diferencia entre las orientaciones de los agentes.
+
+En este caso en vez de calcular la distancia, se calcula la diferencia entre orientaciones.
+
+\lstinputlisting[linerange=23-29, firstnumber=23]{\ScriptsPath/Steering/Basic/Align.cs}
+
+De forma similar a como se actuaba el Arrive en este caso se comprueba si el desalianeamiento es mayor que el ángulo exterior para usar la rotación máxima.
+
+\lstinputlisting[linerange=38-47, firstnumber=38]{\ScriptsPath/Steering/Basic/Align.cs}
+
+El resto del código es igual que el visto en Arrive (cambiando \texttt{steer.linear} por \texttt{steer.angular}), comprobando si la aceleracion es demasiado grande, en caso de que si se establecerá al máximo.
