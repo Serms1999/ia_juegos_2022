@@ -1,24 +1,31 @@
 \part{Bloque 2}
 
-Una vez implementado el comportamiento basado  en el movimiento de unidades se pasará a implementar distintos comportamientos propios de una IA táctica dentro de un entorno de juego de guerra en tiempo real.  En este bloque se hará un repaso por los distintos pasos y decisiones tomadas para superar los distintos apartados (Obligatorios y Opcionales) necesarios para implementar estos elementos.
+ Una vez implementado el comportamiento basado  en el movimiento de unidades se pasará a implementar distintos comportamientos propios de una IA táctica dentro de un entorno de juego de guerra en tiempo real.  En este bloque se hará un repaso por los distintos pasos y decisiones tomadas para superar los distintos apartados (Obligatorios y Opcionales) necesarios para implementar estos elementos.
 
 Para esta práctica se utilizará todo lo implementado en la primera parte de la asignatura relacionado con movimiento de personajes, formaciones y colisiones.
 
 El sistema de combate implementado consta de distintos tipos de unidades y terrenos, donde cada unidad tendrá distintos valores tanto de vida, ataque, alcance (Cuerpo a cuerpo y a distancia) y velocidad de movimiento que dependerá en muchos caso del terreno por el que se mueve el personaje. El mapa se ha implementado de forma manual como un grid, teniendo dos tipos de mapas. Por un lado el mapa convencional que consta de distintos tipos de terrenos, puntos de interés, bases, personajes,etc. Y por otro lado un mapa que mostrará las distintas influencias en forma de 'mapa de calor'.
-\textbf{**COMENTAR ESTADOS**}
-Además  existirán distintas zonas de interés táctico en el mapa como pueden ser puntos de curación, zonas de paso entre 'paises', bases o puntos intermedios de cruces de caminos. Cada una de estas zonas de interés tendrá un tipo de comportamiento dependiendo del equipo, por ejemplo, las bases solo podrán ser tomadas por personajes enemigos.
+Además  existirán distintas zonas de interés táctico en el mapa como pueden ser puntos de curación, zonas de paso entre 'regiones', bases o puntos intermedios de cruces de caminos. Cada una de estas zonas de interés tendrá un tipo de comportamiento dependiendo del equipo, por ejemplo, las bases solo podrán ser tomadas por personajes enemigos.
 
-El movimiento de los personajes del juego estará condicionado por dos factores que se verán en las siguientes secciones. Por un lado tenemos el tipo de  terreno y por otro el tipo de personaje, y será la interacción de los distintos personajes con los distintos tipos de terrenos lo que marque el comportamiento y el valor de atributos como la velocidad en nuestros personajes.
+El movimiento de los personajes del juego estará condicionado por distintos factores que se irán comentando en las siguientes secciones.
+Tendremos en cuenta el tipo de terreno, el tipo de personaje, la interacción entre los distintos personajes con los tipos de terrenos que marcará un comportamiento distinto con atributos cambiantes como puede ser la velocidad de los personajes y por último la influencia del mapa que se utilizará tambien para el comportamiento de los personajes.
 
-\section{Interfaz gráfica}
-El juego como ya se ha comentado consistirá en ver cómo los npcs aplican una estrategia concreta, en este caso es el jugador el que a través de botones puede interaccionar para cambiar la estrategia. En la siguiente figura podemos ver como queda la interfaz
+\section{Interfaz gráfica y Jugabilidad}
+El juego como ya se ha comentado consistirá en ver cómo los NPCS aplican una estrategia concreta, en este caso es el jugador el que a través de botones puede interaccionar para cambiar la estrategia. En la siguiente figura podemos ver cómo queda la interfaz
 \begin{figure}[H]
     \centering
-    \includegraphics{buttons.png}
+    \includegraphics{buttons1.png}
     \caption{Interfaz gráfica estrategia}
     \label{fig:mainButtons}
 \end{figure}
-Los iconos de espadas permitirán poner el modo ofensivo al equipo que se desee mientras que el icono del escudo permite indicar al equipo que se ponga a defender. El botón de \textit{Total war} cambia el comportamiento de todas las unidades del juego para que estas den prioridad al enfrentamiento y toma de la base rival. El juego comenzará con los botones desactivados.
+Los iconos de espadas permitirán poner el modo ofensivo al equipo que se desee mientras que el icono del escudo permite indicar al equipo que se ponga a defender. El botón de \textit{Total war} cambia el comportamiento de todas las unidades del juego para que estas den prioridad al enfrentamiento y toma de la base rival. El juego comenzará con los botones desactivados. \\
+
+Además tendremos una segunda UI a la que accederemos \textbf{presionando la tecla \textit{I}}. Esta nos permitirá tener el minimapa de influencias en grande y el mapa de juego normal en un minimapa, teniendo la siguiente interfaz que permite cambiar el mapa que se muestra \begin{figure}[H]
+    \centering
+    \includegraphics{buttons2.png}
+    \caption{Interfaz gráfica cambio de mapa}
+    \label{fig:mainButtons}
+\end{figure}
 
 \section{Campo de batalla}
 En esta sección veremos los tipos de terrenos que se han utilizado, cómo se han usado y cual será su forma de afectar al movimiento de los personajes. El mapa de juego se ha creado en forma de \textit{grid} donde cada celda del \textit{grid} tendrá una etiqueta de tipo \textit{Floor} y una textura que permita distinguir el tipo de terreno. En total se han utilizado 10 tipos distintos de terrenos:
@@ -29,7 +36,7 @@ En esta sección veremos los tipos de terrenos que se han utilizado, cómo se ha
     \item Arena clara y oscura: Estas texturas formarán zonas de dunas de arena en donde la mayoría de unidades verán reducido su movimiento pero tendrán que atravesar si quieren conseguir algún sub-objetivo o zona de curación. 
     \item Agua: Las zonas de agua oscura serán las más profundas y que ninguna unidad será capaz de atravesar. Sin embargo, el agua más clara y menos profunda puede ser atravesada por unidades montadas o unidades ligeras, ya que las más pesadas pueden ser susceptibles de hundirse aquí.
     \item Suelo: Las zonas de suelo ajedrezadas indicarán donde se situan las bases  
-    \item Lava: TBD
+    \item Lava: Terreno al que las unidades suelen dar muy poca preferencia ya que reduce considerablemente la velocidad de movimiento.
 \end{enumerate}
 El terreno de juego como podemos ver en **\textbf{INSERTAR FIGURA TERRENO TBD**} está formado por un grid de 52x52 donde se han representado 2 bases, la del equipo A en la zona inferior y el equipo B en la zona superior. Estas bases están separadas por un río que no se puede cruzar y conectadas por 3 puentes. Cada base está conectada por una serie de caminos hacia la base enemiga, encontrándose zonas de interés como zonas de curación.
 \section{Tipos de Unidades}
