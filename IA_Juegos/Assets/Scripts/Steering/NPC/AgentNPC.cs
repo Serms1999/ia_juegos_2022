@@ -376,6 +376,7 @@ public class AgentNPC : Agent
         
         this.AddSteering(SteeringNames.PathFindingA, null);
         PathFindingA steering = this.GetComponent<PathFindingA>();
+
         Vector2Int end = new Vector2Int(building.Center.y, building.Center.x);
         steering.StartNode = grid.WorldPointToNode(Position);
         steering.EndNode = grid.GridPointToNode(end - grid.Center);
@@ -443,6 +444,7 @@ public class AgentNPC : Agent
                 SteeringNames.LookingWhereYoureGoing
             });
         
+            path = null;
             Random random = new Random();
             float damage = ((float) random.NextDouble() * (1f - 0.8f) + 0.8f) * _baseDamage;
         
