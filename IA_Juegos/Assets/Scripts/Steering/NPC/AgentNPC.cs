@@ -506,9 +506,14 @@ public class AgentNPC : Agent
     protected bool OnBuilding(Building building)
     {
         List<Vector2Int> buildingNodes = building.Cells;
+        
         Vector2Int gridPos = grid.WorldToGridPoint(Position) + grid.Center;
+        Vector2Int end = new Vector2Int(gridPos.y, gridPos.x);
+        
 
-        return buildingNodes.Contains(gridPos);
+
+        
+        return buildingNodes.Contains(end);
     }
 
     /**
