@@ -589,6 +589,15 @@ public class AgentNPC : Agent
     {
         return _hpCurrent < _hpMax / 2f;
     }
+    
+    /**
+     * @brief Comprueba si el agente tiene la vida al completo.
+     * @return true si los puntos de vida tiene valor máximo.
+     */
+    public bool FullHP()
+    {
+        return Mathf.Approximately(_hpCurrent, _hpMax);
+    }
 
     
     // Comprueba si el agente se está moviendo hacia una estructura.
