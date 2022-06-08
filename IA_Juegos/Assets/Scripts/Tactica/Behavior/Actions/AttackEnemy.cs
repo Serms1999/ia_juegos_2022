@@ -15,6 +15,7 @@ public class AttackEnemy : Action
     protected override Status OnUpdate()
     {
         AgentNPC enemy = _agent.GetNearestEnemy();
+        _agent.Path = null;
         _agent.AttackEnemy(enemy);
         return Status.Success;
     }

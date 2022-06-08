@@ -18,6 +18,8 @@ public class Defend : Action
         {
             return Status.Success;
         }
+
+        _agent.Path = null;
         _agent.Defend();
         return Status.Success;
     }

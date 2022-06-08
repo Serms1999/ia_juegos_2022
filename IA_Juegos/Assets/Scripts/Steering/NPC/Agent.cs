@@ -51,6 +51,8 @@ public class Agent : Bodi
 
 	protected List<Node> path;	// Camino que sigue el agente
 	
+	protected bool dead = false; // Agente vivo
+	
 	protected Dictionary<TerrainType, float> terrainCosts;	// Costes por terreno del agente
 
 	/**
@@ -60,6 +62,14 @@ public class Agent : Bodi
 	{
 		get { return path; }
 		set { path = value; }
+	}
+	
+	/**
+     * @return Devuelve si el personaje está muerto.
+     */
+	public bool Dead
+	{
+		get { return dead; }
 	}
 
 

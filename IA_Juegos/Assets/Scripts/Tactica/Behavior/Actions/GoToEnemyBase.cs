@@ -18,6 +18,8 @@ public class GoToEnemyBase : Action
         {
             return Status.Success;
         }
+
+        _agent.Path = null;
         _agent.GoToEnemyBase();
         return Status.Success;
     }

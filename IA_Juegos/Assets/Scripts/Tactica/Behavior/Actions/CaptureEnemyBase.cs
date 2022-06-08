@@ -14,6 +14,7 @@ public class CaptureEnemyBase : Action
 
     protected override Status OnUpdate()
     {
+        _agent.Path = null;
         _agent.CaptureEnemyBase();
         return Status.Success;
     }

@@ -14,6 +14,7 @@ public class Heal : Action
 
     protected override Status OnUpdate()
     {
+        _agent.Path = null;
         _agent.Heal();
         return Status.Success;
     }

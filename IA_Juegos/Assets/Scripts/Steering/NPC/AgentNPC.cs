@@ -37,7 +37,6 @@ public class AgentNPC : Agent
     protected float captureSpeed = 2f;
 
     protected Grid grid;
-    protected bool dead = false;
     protected Building baseTeam;
     protected Building healingPoint;
     protected Building enemyBase;
@@ -78,14 +77,6 @@ public class AgentNPC : Agent
     {
         get { return _state; }
         set { _state = value; }
-    }
-
-    /**
-     * @return Devuelve si el personaje está muerto.
-     */
-    public bool Dead
-    {
-        get { return dead; }
     }
 
     /**
@@ -443,8 +434,7 @@ public class AgentNPC : Agent
             {
                 SteeringNames.LookingWhereYoureGoing
             });
-        
-            path = null;
+            
             Random random = new Random();
             float damage = ((float) random.NextDouble() * (1f - 0.8f) + 0.8f) * _baseDamage;
         

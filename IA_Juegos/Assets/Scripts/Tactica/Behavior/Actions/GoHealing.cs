@@ -18,6 +18,8 @@ public class GoHealing : Action
         {
             return Status.Success;
         }
+
+        _agent.Path = null;
         _agent.GoHealing();
         return Status.Success;
     }

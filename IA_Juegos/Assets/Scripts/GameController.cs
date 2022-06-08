@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
     }
 
     /**
-     * @brief Devuelve una lista con los agentes más cercanos a uno dado.
+     * @brief Devuelve una lista con los agentes vivos más cercanos a uno dado.
      * @pram[in] agent Agente que pide la lista.
      * @param[in] distance Distancia a tener en cuenta.
      * @return Lista con los agentes situados a una distancia ``distance`` del agente ``agent``.
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
         List<Agent> allAgents = GameObject.FindGameObjectsWithTag("NPC").ToList()
             .Select(a => a.GetComponent<Agent>()).ToList();
 
-        return new List<Agent>(allAgents.Where(a => !a.Equals(agent) &&
+        return new List<Agent>(allAgents.Where(a => !a.Equals(agent) && !a.Dead &&
                                                     Vector3.Distance(a.Position, agent.Position) <= distance)
             .OrderBy(a => Vector3.Distance(a.Position, agent.Position)));
     }
