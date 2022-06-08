@@ -593,7 +593,7 @@ public class AgentNPC : Agent
     // Comprueba si el agente se está moviendo hacia una estructura.
     protected bool GoingToBuilding(Building building)
     {
-        if (path == null)
+        if (path == null || path.Count==0)
         {
             return false;
         }
