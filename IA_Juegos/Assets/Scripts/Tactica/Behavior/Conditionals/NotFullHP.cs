@@ -19,6 +19,6 @@ public class NotFullHP : Conditional
             return false;
         }
 
-        return _agent.FullHP();
+        return !_agent.FullHP();
     }
 }
