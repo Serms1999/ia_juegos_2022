@@ -22,8 +22,8 @@ public class UnidadLancero: AgentNPC
         _maxAngularAcc = 2f;
         _maxForce = 4f;
         _baseDamage = 40f;
-        _attackRange = 4f;
-        _attackSpeed = 2f;
+        _attackRange = 6f;
+        _attackSpeed = 4f;
         _hpMax = 250;
         _hpCurrent = 250;
         

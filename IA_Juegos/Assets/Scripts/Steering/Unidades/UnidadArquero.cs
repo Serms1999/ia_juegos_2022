@@ -20,7 +20,7 @@ public class UnidadArquero: AgentNPC
         _maxAngularAcc = 2f;
         _maxForce = 2f;
         _baseDamage = 20f;
-        _attackRange = 9f;
+        _attackRange = 14f;
         _attackSpeed = 4f;
         _hpMax = 100;
         _hpCurrent = 100;

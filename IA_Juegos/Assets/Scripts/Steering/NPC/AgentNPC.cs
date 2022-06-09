@@ -438,7 +438,7 @@ public class AgentNPC : Agent
     {
         GameController controller = gameManager.GetComponent<GameController>();
 
-        return controller.GetNearEnemies(this, _attackRange);
+        return controller.GetNearEnemies(this, 14f);
     }
 
     /**

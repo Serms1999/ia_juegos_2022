@@ -20,8 +20,8 @@ public class UnidadInfanteria : AgentNPC
         _maxAngularAcc = 2f;
         _maxForce = 4f;
         _baseDamage = 10f;
-        _attackRange = 1f;
-        _attackSpeed = 2f;
+        _attackRange = 6f;
+        _attackSpeed = 4f;
         _hpMax = 200;
         _hpCurrent = 200;
         

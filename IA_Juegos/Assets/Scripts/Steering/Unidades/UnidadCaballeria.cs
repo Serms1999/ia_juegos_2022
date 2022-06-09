@@ -19,8 +19,8 @@ public class UnidadCaballeria : AgentNPC
         _maxAngularAcc = 10f;
         _maxForce = 3f;
         _baseDamage = 30f;
-        _attackRange = 2f;
-        _attackSpeed = 2f;
+        _attackRange = 6f;
+        _attackSpeed = 4f;
         _hpMax = 130;
         _hpCurrent = 130;
         
