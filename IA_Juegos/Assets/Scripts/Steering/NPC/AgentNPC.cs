@@ -200,24 +200,6 @@ public class AgentNPC : Agent
         }
     }
 
-    /**
-     * @brief Comprueba si el personaje está muy lejos de su base.
-     * @details Para saber si está lejos comprueba si está a una distancia superior a 30 con una distancia
-     * de Chevychev.
-     * @return true si está lejos de su base.
-     */
-    public bool FarFromBase()
-    {
-        Node n1 = grid.WorldPointToNode(Position);
-        Vector2Int baseTeamCenter = baseTeam.Center;
-        Node n2 = grid.GridPointToNode(new Vector2Int(baseTeamCenter.y, baseTeamCenter.x));
-        
-        int dx = Mathf.Abs(n1.GridPosition.x - n2.GridPosition.x);
-        int dy = Mathf.Abs(n1.GridPosition.y - n2.GridPosition.y);
-
-        return Mathf.Max(dx, dy) > 30f;
-    }
-
     protected virtual void Awake()
     {
         this.steer = new Steering();
@@ -365,14 +347,14 @@ public class AgentNPC : Agent
             SteeringNames.LookingWhereYoureGoing
         });
         
-        this.AddSteering(SteeringNames.PathFindingA, null);
-        PathFindingA steering = this.GetComponent<PathFindingA>();
-
+        PathFindingA steering = gameObject.AddComponent<PathFindingA>();
         Vector2Int end = new Vector2Int(building.Center.y, building.Center.x);
         steering.StartNode = grid.WorldPointToNode(Position);
         steering.EndNode = grid.GridPointToNode(end - grid.Center);
         steering.DistanceMethod = DistanceMethods.Chebychev;
         steering.Weight = 5f;
+        steering.enabled = true;
+        listSteerings.Add(steering);
     }
 
     // Matar al personaje.
@@ -497,13 +479,10 @@ public class AgentNPC : Agent
     {
         List<Vector2Int> buildingNodes = building.Cells;
         
-        Vector2Int gridPos = grid.WorldToGridPoint(Position) + grid.Center;
-        Vector2Int end = new Vector2Int(gridPos.y, gridPos.x);
+        Vector2Int aux = grid.WorldToGridPoint(Position) + grid.Center;
+        Vector2Int gridPos = new Vector2Int(aux.y, aux.x);
         
-
-
-        
-        return buildingNodes.Contains(end);
+        return buildingNodes.Contains(gridPos);
     }
 
     /**
@@ -629,6 +608,68 @@ public class AgentNPC : Agent
     public bool GoingToEnemyBase()
     {
         return GoingToBuilding(enemyBase);
+    }
+    
+    // Comprueba si el personaje está lejos de una estructura
+    protected bool FarFromBuilding(Building building)
+    {
+        Node n1 = grid.WorldPointToNode(Position);
+        Vector2Int buildingCenter = building.Center - grid.Center;
+        Node n2 = grid.GridPointToNode(new Vector2Int(buildingCenter.y, buildingCenter.x));
+
+        int dx = Mathf.Abs(n1.GridPosition.x - n2.GridPosition.x);
+        int dy = Mathf.Abs(n1.GridPosition.y - n2.GridPosition.y);
+
+        return Mathf.Max(dx, dy) > 30f;
+    }
+    
+    // Comprueba si el personaje está cerca de una estructura
+    protected bool NearToBuilding(Building building)
+    {
+        Node n1 = grid.WorldPointToNode(Position);
+        Vector2Int buildingCenter = building.Center - grid.Center;
+        Node n2 = grid.GridPointToNode(new Vector2Int(buildingCenter.y, buildingCenter.x));
+
+        int dx = Mathf.Abs(n1.GridPosition.x - n2.GridPosition.x);
+        int dy = Mathf.Abs(n1.GridPosition.y - n2.GridPosition.y);
+
+        return Mathf.Max(dx, dy) < 10f;
+    }
+
+    /**
+     * @brief Comprueba si el agente está lejos de su base.
+     * @return true si está lejos.
+     */
+    public bool FarFromTeamBase()
+    {
+        return FarFromBuilding(baseTeam);
+    }
+
+    /**
+     * @brief Comprueba si el agente está cerca de su base.
+     * @return true si está cerca.
+     */
+    public bool NearToTeamBase()
+    {
+        return NearToBuilding(baseTeam);
+    }
+    
+    /**
+     * @brief Comprueba si el agente está lejos de la base enemiga.
+     * @return true si está lejos.
+     */
+    public bool FarFromEnemyBase()
+    {
+        return FarFromBuilding(enemyBase);
+    }
+    
+    /**
+     * @brief Comprueba si el agente está cerca de la base enemiga.
+     * @return true si está cerca.
+     */
+    public bool NearToEnemyBase()
+    {
+        return NearToBuilding(enemyBase);
     }
 
     
