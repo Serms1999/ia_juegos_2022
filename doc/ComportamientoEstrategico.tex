@@ -1,0 +1,57 @@
+ \section{Comportamiento Estratégico}
+ \subsection{Modos de }
+ El comportamiento estratégico implementado a nivel de bando/grupo se ha hecho de forma que tenemos varios modos.
+ \begin{itemize}
+     \item Ataque: El bando que esté en modo ataque irá a por la base enemiga y todo aquel que se encuentre por su paso lo tratará de eliminar.
+     \item Defensa: Este modo es para que el equipo seleccionado se centre en defender su base de los enemigos y priorizarán también la cura de los personajes.
+     \item Guerra Total: En este modo ambos equipos pasan al ataque y ganará el primero en conquistar la base enemiga
+ \end{itemize}
+La manera en la que se adapta el comportamiento según el modo es sencilla basándonos en el uso de la clase Behaviour Tree. Tenemos la clase State que recoge todos los modos de juego y cada personaje tendrá un atributo de tipo \textit{State}.
+ \begin{lstlisting}
+public enum State
+{
+    TotalWar,
+    Attack,
+    Defense
+}
+\end{lstlisting}
+El cambio de modo es a través de los botones, donde cada botón llamará al método de la clase \textit{GameController} correspondiente:
+\begin{lstlisting}
+public void AttackModeA()
+    {
+        SwitchTeamMode(Teams.TeamA, State.Attack);
+    }
+public void AttackModeB()
+    {
+        SwitchTeamMode(Teams.TeamB, State.Attack);
+    }
+public void DefenseModeA()
+    {
+        SwitchTeamMode(Teams.TeamA, State.Defense);
+    }
+public void DefenseModeB()
+    {
+        SwitchTeamMode(Teams.TeamB, State.Defense);
+    }
+public void TotalWar()
+    {
+        SwitchTeamMode(Teams.TeamA, State.TotalWar);
+        SwitchTeamMode(Teams.TeamB, State.TotalWar);
+    }
+\end{lstlisting}
+El método que contiene toda la lógica de los cambios de modo es 
+\textit{SwitchTeamMode}, que se encarga de buscar dentro de todos los NPCs que tenemos  aquellos que coinciden con el equipo pasado por parámetro y el estado se modificará al que se tiene como segundo parámetro.
+\begin{lstlisting}
+ protected void SwitchTeamMode(Teams team, State state)
+    {
+        List<AgentNPC> teamAgents = GameObject.FindGameObjectsWithTag("NPC").ToList()
+            .Select(a => a.GetComponent<AgentNPC>())
+            .Where(a => a.Team.Equals(team))
+            .ToList();
+
+        foreach (AgentNPC agent in teamAgents)
+        {
+            agent.State = state;
+        }
+    }
+\end{lstlisting}
