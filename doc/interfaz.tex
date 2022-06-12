@@ -1,0 +1,19 @@
+\newcommand{\behaviourmodes}{../IA_Juegos/Assets/Textures/UI}
+\begin{tikzpicture}
+    \sffamily\sansmath
+    \node[draw, rounded corners, minimum width = 5cm, minimum height = 1cm, fill = white] (0) {TOTAL WAR};
+    \node (1) [right = -1.3cm of 0] {\includegraphics[scale=0.11]{\behaviourmodes/AttackMode}};
+    \node (2) [left = -1.3cm of 0] {\includegraphics[scale=0.11]{\behaviourmodes/AttackMode}};
+    
+    \node[draw, align = left, rounded corners, minimum width = 1.5cm, minimum height = 1cm, fill = white] (3) at (-1.1, -1.1) {\phantom{l}A\phantom{llllllllllll}};
+    \node (4) [right = -1.3cm of 3] {\includegraphics[scale=0.11]{\behaviourmodes/AttackMode}};
+    
+    \node[draw, align = left, rounded corners, minimum width = 1.5cm, minimum height = 1cm, fill = white] (5) at (1.1, -1.1) {\phantom{l}A\phantom{llllllllllll}};
+    \node (6) [right = -1.3cm of 5] {\includegraphics[scale=0.11]{\behaviourmodes/DefenseMode}};
+    
+    \node[draw, align = left, rounded corners, minimum width = 1.5cm, minimum height = 1cm, fill = white] (7) at (-1.1, -2.2) {\phantom{l}B\phantom{llllllllllll}};
+    \node (8) [right = -1.3cm of 7] {\includegraphics[scale=0.11]{\behaviourmodes/AttackMode}};
+    
+    \node[draw, align = left, rounded corners, minimum width = 1.5cm, minimum height = 1cm, fill = white] (9) at (1.1, -2.2) {\phantom{l}B\phantom{llllllllllll}};
+    \node (10) [right = -1.3cm of 9] {\includegraphics[scale=0.11]{\behaviourmodes/DefenseMode}};
+\end{tikzpicture}

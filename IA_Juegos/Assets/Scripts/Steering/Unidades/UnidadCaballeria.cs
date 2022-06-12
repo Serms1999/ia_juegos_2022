@@ -41,4 +41,36 @@ public class UnidadCaballeria : AgentNPC
         terrainCosts.Add(TerrainType.Lava, 15f);
         terrainCosts.Add(TerrainType.Water, Mathf.Infinity);
     }
+    
+    protected override float GetVelocityFromTerrain()
+    {
+        TerrainType terrain = GetActualTerrain();
+        switch (terrain)
+        {
+            case TerrainType.Stones:
+            {
+                return 0.75f;
+            }
+            case TerrainType.Sand:
+            {
+                return 0.25f;
+            }
+            case TerrainType.Floor:
+            {
+                return 0.5f;
+            }
+            case TerrainType.Water:
+            {
+                return 0f;
+            }
+            case TerrainType.Lava:
+            {
+                return 0.05f;
+            }
+            default:
+            {
+                return 1f;
+            }
+        }
+    }
 }

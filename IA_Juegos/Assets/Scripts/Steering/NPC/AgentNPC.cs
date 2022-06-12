@@ -282,7 +282,7 @@ public class AgentNPC : Agent
         steer.linear.y = 0f;
         
         // Velocity
-        Velocity += steer.linear * Time.deltaTime;
+        Velocity += steer.linear * GetVelocityFromTerrain() * Time.deltaTime;
         if (Velocity.magnitude > MaxSpeed)
         {
             Velocity = Velocity.normalized * MaxSpeed;
@@ -303,6 +303,19 @@ public class AgentNPC : Agent
         // Aplicar las actualizaciones a la componente Transform
         transform.rotation = new Quaternion(); //Quaternion.identity;
         transform.Rotate(Vector3.up, Orientation);
+    }
+
+    protected TerrainType GetActualTerrain()
+    {
+        Vector2Int aux = grid.WorldToGridPoint(Position);
+        Vector2Int gridPos = new Vector2Int(aux.y, aux.x);
+
+        return grid.GridPointToNode(gridPos).TerrainType;
+    }
+
+    protected virtual float GetVelocityFromTerrain()
+    {
+        return 1f;
     }
 
     public virtual void LateUpdate()
