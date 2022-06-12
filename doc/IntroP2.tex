@@ -1,34 +1,38 @@
 \part{Bloque 2}
 
- Una vez implementado el comportamiento basado  en el movimiento de unidades se pasará a implementar distintos comportamientos propios de una IA táctica dentro de un entorno de juego de guerra en tiempo real.  En este bloque se hará un repaso por los distintos pasos y decisiones tomadas para superar los distintos apartados (Obligatorios y Opcionales) necesarios para implementar estos elementos.
+ Una vez implementado el comportamiento basado  en el movimiento de unidades se pasará a implementar distintos comportamientos propios de una IA táctica dentro de un entorno de juego de guerra en tiempo real.  En este bloque se hará un repaso por los distintos pasos y decisiones tomadas para superar los distintos apartados (obligatorios y opcionales) necesarios para implementar estos elementos.
 
 Para esta práctica se utilizará todo lo implementado en la primera parte de la asignatura relacionado con movimiento de personajes, formaciones y colisiones.
 
-El sistema de combate implementado consta de distintos tipos de unidades y terrenos, donde cada unidad tendrá distintos valores tanto de vida, ataque, alcance (Cuerpo a cuerpo y a distancia) y velocidad de movimiento que dependerá en muchos caso del terreno por el que se mueve el personaje. El mapa se ha implementado de forma manual como un grid, teniendo dos tipos de mapas. Por un lado el mapa convencional que consta de distintos tipos de terrenos, puntos de interés, bases, personajes,etc. Y por otro lado un mapa que mostrará las distintas influencias en forma de 'mapa de calor'.
-Además  existirán distintas zonas de interés táctico en el mapa como pueden ser puntos de curación, zonas de paso entre 'regiones', bases o puntos intermedios de cruces de caminos. Cada una de estas zonas de interés tendrá un tipo de comportamiento dependiendo del equipo, por ejemplo, las bases solo podrán ser tomadas por personajes enemigos.
+El sistema de combate implementado consta de distintos tipos de unidades y terrenos, donde cada unidad tendrá distintos valores tanto de vida, ataque, alcance (cuerpo a cuerpo y a distancia) y velocidad de movimiento que dependerá en muchos caso del terreno por el que se mueve el personaje. El mapa se ha implementado de forma manual como un grid, teniendo dos tipos de mapas. Por un lado el mapa convencional que consta de distintos tipos de terrenos, puntos de interés, bases, personajes, etc.; y por otro lado un mapa que mostrará las distintas influencias en forma de `mapa de calor'.
+
+Además  existirán distintas zonas de interés táctico en el mapa como pueden ser puntos de curación, zonas de paso entre `regiones', bases o puntos intermedios de cruces de caminos. Cada una de estas zonas de interés tendrá un tipo de comportamiento dependiendo del equipo, por ejemplo, las bases solo podrán ser tomadas por personajes enemigos.
 
 El movimiento de los personajes del juego estará condicionado por distintos factores que se irán comentando en las siguientes secciones.
-Tendremos en cuenta el tipo de terreno, el tipo de personaje, la interacción entre los distintos personajes con los tipos de terrenos que marcará un comportamiento distinto con atributos cambiantes como puede ser la velocidad de los personajes y por último la influencia del mapa que se utilizará tambien para el comportamiento de los personajes.
 
-
-
-
-
-
-
+Tendremos en cuenta el tipo de terreno, el tipo de personaje, la interacción entre los distintos personajes con los tipos de terrenos que marcará un comportamiento distinto con atributos cambiantes como puede ser la velocidad de los personajes y por último la influencia del mapa que se utilizará también para el comportamiento de los personajes.
 
 \section{Mapa táctico}
-En nuestro juego RTS se ha implementado un minimapa que nos permite tener en la esquina inferior derecha los distintos mapas de influencia y además la IA táctica se puede adaptar su comportamiento según esta influencia. En este apartado se verá los distintos mapas implementados y su influencia táctica.
+
+En nuestro juego RTS se ha implementado un mini mapa que nos permite tener en la esquina inferior derecha los distintos mapas de influencia y además la IA táctica se puede adaptar su comportamiento según esta influencia. En este apartado se verá los distintos mapas implementados y su influencia táctica.
 
 \subsection{Mini mapas}
+
 Utilizando un canvas de tamaño más pequeño se ha creado un panel en la esquina inferior derecha en donde se proyectarán diferentes texturas en tiempo real. Tenemos la cámara enfocada en nuestro terreno de juego principal y otra cámara enfocada en el terreno de las influencias y las texturas en tiempo real serán las que contendrán aquello que renderice la cámara. 
 
-Si \textbf{presionamos la tecla I} podemos hacer que el mapa principal pase al minimapa y así ver en grande los distintos mapas de influencias.  Además en esta vista tenemos un boton que nos permite cambiar entre 3 tipos de mapa: influencia, vulnerabilidad y tensión.
-%%capturas
-\subsection{Comportamiento táctico: Map de Influencia}
-El mapa de influencia se basa en que los distintos npcs y puntos de interés del juego tienen una influencia distintos, y estas influencias afectarán de distinta forma al comportamiento que tendrán los agentes a partir de la información que reciban de su entorno. Esta información usada por el agente puede ser el tipo de terreno, los agentes que tiene cerca, puntos de curación, etc. Este comportamiento influirá en donde se dirigen los personajes a la hora de atacar y defender. \\
+Si presionamos la tecla \keys{I} podemos hacer que el mapa principal pase al mini mapa y así ver en grande los distintos mapas de influencias.  Además en esta vista tenemos un botón que nos permite cambiar entre 3 tipos de mapa: influencia, vulnerabilidad y tensión.
 
-El mapa de influencia se representará como un mapa de calor de color Rojo y Azul para los equipos A y B respectivamente. La influencia mostrada en el mapa se calculará como el agregado de las influencias que emite cada personaje.
-%Cómo se calcula la influencia.
+% Capturas
+
+\subsection{Comportamiento táctico: Map de Influencia}
+El mapa de influencia se basa en que los distintos NPCs y puntos de interés del juego tienen una influencia distintos, y estas influencias afectarán de distinta forma al comportamiento que tendrán los agentes a partir de la información que reciban de su entorno. Esta información usada por el agente puede ser el tipo de terreno, los agentes que tiene cerca, puntos de curación, etc. Este comportamiento influirá en donde se dirigen los personajes a la hora de atacar y defender. 
+
+El mapa de influencia se representará como un mapa de calor con los colores rojo y azul, donde el rojo representa influencia máxima del equipo B y el azul del A. La influencia mostrada en el mapa se calculará de la siguiente forma.
+\begin{gather*}
+    Influencia = Influencia_A - Influencia_B
+\end{gather*}
+donde $Influencia_A, Influencia_B \in [0,1]$ y, por tanto, $Influencia \in [-1, 1]$.
+
+% Cómo se calcula la influencia.
 
 Esta información de influencias será usada como información táctica a la hora de calcular el comportamiento táctico de los personajes

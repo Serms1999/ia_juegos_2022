@@ -11,9 +11,11 @@
 \usepackage[lmargin=3cm,rmargin=3cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage{longtable}
 \usepackage{blindtext}
-
+\usepackage[EULERGREEK]{sansmath}
+\usepackage{menukeys}
 \usepackage{ragged2e}
 \usepackage{fancyhdr}
+\usepackage{multicol}
 \usepackage{datetime}
 \usepackage{parskip}
 \usepackage{siunitx}
@@ -21,7 +23,7 @@
 \usetikzlibrary{shapes, positioning}
 \usepackage{titling}
 \usepackage{listingsutf8}
-%\usepackage{lstautodedent} % Quitar para overleaf
+\usepackage{lstautodedent} % Quitar para overleaf
 \pagestyle{fancy}
 \setlength{\headheight}{15.71667pt}
 \usepackage{hyperref}
@@ -32,7 +34,11 @@
     linkcolor=black,
     urlcolor=black
 }
-   
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{bibliografia.bib}
+
+%\renewmenumacro{\directory}{pathswithfolder}
+
 \fancyfoot{}
 \renewcommand{\footrulewidth}{0.5pt}
 \fancyfoot[R]{\thepage}
@@ -65,7 +71,7 @@
     IntroP2,
     InterfazPT2,
     CampodeBatallaYUnidades,
-    ComportamientoTáctico,
+    ComportamientoTactico,
     ComportamientoEstrategico
 }
 
@@ -108,12 +114,23 @@
 \include{Introduccion}
 
 \input{Steerings}
+
 \include{formaciones}
+
 \include{Colisiones}
+
 \include{lrta}
+
 \include{IntroP2}
+
 \include{InterfazPT2}
+
 \include{CampodeBatallaYUnidades}
-\include{ComportamientoTáctico}
+
+\include{ComportamientoTactico}
+
 \include{ComportamientoEstrategico}
+
+\printbibliography[heading = bibintoc]
+
 \end{document}
