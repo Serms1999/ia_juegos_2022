@@ -1,5 +1,64 @@
 \section{Mapa Táctico}
-Para darle una mayor complejidad al juego RTS se añaden componentes tácticos, en este caso se van a utilizar tres mapas tácticos: Influencia, Vulnerabilidad y Tensión. Este mapa táctico en un principio se puede ver en forma de minimapa que permite apreciar cómo varía la influencia en los distintos puntos del mapa. Esta visión táctica como ya se ha explicado se podrá alternar con el mapa de juego y así poder visualizarla en pantalla completa a la vez que cambiar el tipo de mapa táctico, mientras que el mapa de juego permanece en el minimapa.
+En nuestro juego RTS se ha implementado un mini mapa que nos permite tener en
+la esquina inferior derecha los distintos mapas de influencia y ademáas la IA táactica se
+puede adaptar su comportamiento según esta influencia. En este apartado se verán los
+distintos mapas implementados y su influencia táctica.
+
+Este mapa táctico en un principio se puede ver en forma de minimapa que permite apreciar cómo varía la influencia en los distintos puntos del mapa. Esta visión táctica como ya se ha explicado se podrá alternar con el mapa de juego y así poder visualizarla en pantalla completa a la vez que cambiar el tipo de mapa táctico, mientras que el mapa de juego permanece en el minimapa.
 
 Veamos primero cómo se ha implementado el minimapa y después entraremos más en detalle de los mapas tácticos.
-\section{Minimapa}
+\subsection{Minimapa}
+Utilizando un canvas de tamaño más pequeño se ha creado un panel en la esquina inferior derecha en donde se proyectarán diferentes texturas en tiempo real. Tenemos la cámara enfocada en nuestro terreno de juego principal y otra cámara enfocada en el terreno de las influencias y las texturas en tiempo real serán las que contendrán aquello que renderice la cámara. 
+
+Si presionamos la tecla \keys{I} podemos hacer que el mapa principal pase al mini mapa y así ver en grande los distintos mapas de influencias.  Además en esta vista tenemos un botón que nos permite cambiar entre 3 tipos de mapa: influencia, vulnerabilidad y tensión.
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[scale=0.3]{doc/images/MapaNormal.png}
+         \caption{Minimapa de juego}
+         \label{fig:y equals x}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[scale=0.3]{doc/images/InfluenciaMap.png}
+         \caption{Minimapa Influencia}
+         \label{fig:three sin x}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[scale=0.3]{doc/images/TensionMap.png}
+         \caption{Minimapa Tensión}
+         \label{fig:five over x}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[scale=0.3]{doc/images/VulnerabilidadMap.png}
+         \caption{Minimapa Vulnerabilidad}
+         \label{fig:five over x}
+     \end{subfigure}
+        \caption{Tipos de minimapas}
+        \label{fig:three graphs}
+\end{figure}
+\subsection{Creación mapa táctico}
+El mapa táctico será un grid de tamaño 52 x 52 al igual que el mapa de juego, en este caso este tomará colores según los valores de influencia.
+
+
+
+\subsubsection{Mapa de Influencia}
+El mapa de influencia se basa en que los distintos NPCs y puntos de interés del juego tienen una influencia distintos, y estas influencias afectarán de distinta forma al comportamiento que tendrán los agentes a partir de la información que reciban de su entorno. Esta información usada por el agente puede ser el tipo de terreno, los agentes que tiene cerca, puntos de curación, etc. Este comportamiento influirá en donde se dirigen los personajes a la hora de atacar y defender. 
+
+El mapa de influencia se representará como un mapa de calor con los colores rojo y azul, donde el rojo representa influencia máxima del equipo B y el azul del A. La influencia mostrada en el mapa se calculará de la siguiente forma.
+\begin{gather*}
+    Influencia = Influencia_A - Influencia_B
+\end{gather*}
+donde $Influencia_A, Influencia_B \in [0,1]$ y, por tanto, $Influencia \in [-1, 1]$.
+
+% Cómo se calcula la influencia.
+
+Esta información de influencias será usada como información táctica a la hora de calcular el comportamiento táctico de los personajes
+\subsubsection{Mapa de Vulnerabilidad}
+\subsubsection{Mapa de Tensión}
+\subsection{Aplicación y uso de la información táctica en el comportamiento de NPCs}

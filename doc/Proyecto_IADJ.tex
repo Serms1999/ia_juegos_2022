@@ -18,6 +18,8 @@
 \usepackage{multicol}
 \usepackage{datetime}
 \usepackage{parskip}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{siunitx}
 \usepackage{tikz}
 \usetikzlibrary{shapes, positioning}
@@ -73,7 +75,8 @@
     CampodeBatallaYUnidades,
     ComportamientoTactico,
     ComportamientoEstrategico,
-    SistemaCombate
+    SistemaCombate,
+    MapaTactico
 }
 
 \begin{document}
@@ -134,6 +137,7 @@
 
 \include{SistemaCombate}
 
+\include{MapaTactico}
 \printbibliography[heading = bibintoc]
 
 \end{document}
