@@ -1,0 +1,46 @@
+\section{Pathfinding táctico individual}
+
+En esta sección se explicará el funcionamiento del pathfinding táctico individual de los personajes. Para esta labor se ha hecho uso del algoritmo A* (\ref{alg:astar}).
+
+\begin{algorithm}
+    \caption{Algoritmo A*}
+    \label{alg:astar}
+    \begin{algorithmic}[1]
+        \Procedure{A*}{\texttt{grid}, \texttt{inicio}, \texttt{final}, $h$} \Comment{$h$ es la función heurística admisible}
+        \State Poner \texttt{inicio} en lista de \texttt{ABIERTOS} con $f(\texttt{inicio}) = h(\texttt{inicio})$
+        \While{lista de \texttt{ABIERTOS} no esté vacía}
+        \State Obtener de la lista de \texttt{ABIERTOS} el nodo \texttt{actual} con menor $f(\texttt{nodo})$
+        \If{$\texttt{actual} = \texttt{final}$} \Comment{Se ha encontrado una solución}
+        \State \textbf{break}
+        \EndIf
+        \State Conseguir todos los nodos \texttt{sucesor} de \texttt{actual}
+        \For{cada \texttt{sucesor} de \texttt{actual}}
+        \State Establecer $\texttt{coste\_sucesor} = g(\texttt{actual}) + w(\texttt{actual}, \texttt{sucesor})$ \Comment $w(a,b)$ es el coste del camino entre $a$ y $b$
+        \If{\texttt{actual} está en la lista de \texttt{ABIERTOS}}
+        \If{$g(\texttt{sucesor}) \leq \texttt{coste\_sucesor}$}
+        \State \textbf{continue}
+        \EndIf
+        \ElsIf{\texttt{sucesor} está en la lista de \texttt{CERRADOS}}
+        \If{$g(\texttt{sucesor}) \leq \texttt{coste\_sucesor}$}
+        \State \textbf{continue}
+        \EndIf
+        \State Mover \texttt{sucesor} de la lista de \texttt{CERRADOS} a la de \texttt{ABIERTOS}
+        \Else
+        \State Añadir \texttt{sucesor} a la lista de \texttt{ABIERTOS}
+        \EndIf
+        \State Establecer $g(\texttt{sucesor}) = \texttt{coste\_sucesor}$
+        \State Establecer \texttt{actual} como nodo padre de \texttt{sucesor}
+        \EndFor
+        \State Añadir \texttt{actual} a la lista de \texttt{CERRADOS}
+        \EndWhile
+        \If{$\texttt{actual} \neq \texttt{final}$} \Comment{No se ha encontrado camino}
+        \State Terminar con error.
+        \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+Este algoritmo se ha implementado casi de manera literal. Su mayor cambio viene por la parte de calcular el coste del sucesor. En este caso no sólo se ha tenido en cuenta el coste de desplazarse del nodo actual al vecino, sino que se ha tenido en cuenta el tipo de terreno así como la influencia enemiga. Por lo tanto el código implementado sería:
+
+\lstinputlisting[linerange=37-52, firstnumber=37]{\ScriptsPath/Steering/PathFinding/A.cs}
+

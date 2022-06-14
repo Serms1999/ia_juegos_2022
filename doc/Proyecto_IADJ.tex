@@ -12,7 +12,10 @@
 \usepackage{longtable}
 \usepackage{blindtext}
 \usepackage[EULERGREEK]{sansmath}
-\usepackage{menukeys}
+%\usepackage{menukeys}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
 \usepackage{ragged2e}
 \usepackage{fancyhdr}
 \usepackage{multicol}
@@ -38,6 +41,7 @@
 \addbibresource{bibliografia.bib}
 
 %\renewmenumacro{\directory}{pathswithfolder}
+\floatname{algorithm}{Algoritmo}
 
 \fancyfoot{}
 \renewcommand{\footrulewidth}{0.5pt}
@@ -68,12 +72,13 @@
     %formaciones,
     %Colisiones,
     %lrta,
-    IntroP2,
-    InterfazPT2,
-    CampodeBatallaYUnidades,
-    ComportamientoTactico,
-    ComportamientoEstrategico,
-    SistemaCombate
+    %IntroP2,
+    %InterfazPT2,
+    %CampodeBatallaYUnidades,
+    %ComportamientoTactico,
+    %ComportamientoEstrategico,
+    %SistemaCombate,
+    Pathfinding
 }
 
 \begin{document}
@@ -133,6 +138,8 @@
 \include{ComportamientoEstrategico}
 
 \include{SistemaCombate}
+
+\include{Pathfinding}
 
 \printbibliography[heading = bibintoc]
 

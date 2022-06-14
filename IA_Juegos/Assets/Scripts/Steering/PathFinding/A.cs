@@ -34,12 +34,10 @@ public static class A
                     continue;
                 }
 
-                float newCost = current.GCost + 1;
-
-                newCost = current.GCost + agent.GetTerrainCost(current.TerrainType);
+                float newCost = current.GCost + agent.GetTerrainCost(neighbour.TerrainType);
                 
                 /*
-                float influenceValue = current.InfluenceValue * 5f;
+                float influenceValue = neighbour.InfluenceValue;
                 switch (agent.Team)
                 {
                     case Teams.TeamA:
