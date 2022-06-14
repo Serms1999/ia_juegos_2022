@@ -1,4 +1,88 @@
 \section{Sistema de combate}
-Nuestro sistema de combate consiste en simples ataques entre los distintos personajes. Estos para atacar necesitan estar en rango de ataque, teniendo cada uno un rango específico, los arqueros tienen mas rango que los demás por ejemplo.\\
-Una vez estamos en rango de ataque el agente hará un daño aleatorio entre su rango, este podrá ir entre el 80-100\% del mismo. Tras esto, para seguir atacando el npc tendrá que esperar según su velocidad de ataque.\\
-Una vez se ha terminado un combate hay 2 posibilidades. Si se sigue vivo el personaje evalúa la vida que le quede y actuará en consecuencia a ello. Algunos irán a curarse por ejemplo mientras otros priorizan la defensa a su vida. La otra posibilidad que nos queda es que ese personaje haya muerto, si es el caso reaparecerá despues de un tiempo en su base.
+Nuestro sistema de combate consiste en simples ataques entre los distintos personajes donde la evolución del combate dependerá de las distintas características de las unidades. Estos para atacar necesitan estar en rango de ataque, teniendo cada uno un rango específico, los arqueros tienen mas rango que los demás por ejemplo. Veamos los atributos que toman parte en el combate y los valores que toman estos para cada personaje:
+\begin{itemize}
+    \item \textbf{\_baseDamage:} Daño base de la unidad, varía según el tipo.
+    \item \textbf{\_attackRange:} Distancia máxima a la que se considera que un objetivo está cerca, y por tanto se le puede atacar.
+    \item \textbf{\_attackSpeed:} Velocidad a la que ataque el agente.
+    \item \textbf{\_hpMax:} Puntos de vida máximos del agente.
+    \item \textbf{\_hpCurrent:} Puntos de vida actuales del agente.
+    \item \textbf{healSpeed:} Velocidad a la que recupera vida el agente.
+    \item \textbf{captureSpeed:} Velocidad de captura de la base enemiga.
+\end{itemize}
+En la siguiente tabla podemos ver cómo varían los atributos segun la unidad:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+       \cline{2-5}        
+       \textbf{Unidad} & Daño base & Rango de ataque & Velocidad de ataque & Vida máxima \\
+        \hline
+        Lancero & 40 & 6 & 4 & 250 \\
+        \hline
+        Infantería & 10 & 6 & 4 & 200 \\
+        \hline
+        Caballería & 30 & 6 & 4 & 130 \\
+        \hline
+        Arquero & 20 & 14 & 4 & 100 \\
+        \hline
+    \end{tabular}
+    \caption{Tabla de Influencias}
+\end{table}
+
+Una vez estamos en rango de ataque el agente hará un daño aleatorio entre su rango, este podrá ir entre el 80-100\% del mismo. Tras esto, para seguir atacando el NPC tendrá que esperar según su velocidad de ataque.\\
+
+Es el método \textit{attackEnemy} el que incluye la lógica de combate entre unidades, donde podemos ver cómo se obtiene un random entre 0.8 y 1 para el ataque que multiplica el daño base y posteriormente llama al método del agente enemigo que resta esta cantidad de puntos de vida.
+\begin{lstlisting}
+public void AttackEnemy(AgentNPC enemy)
+    {
+        if (Mathf.Approximately(_timerAttack, _attackSpeed))
+        {
+            this.RemoveAllSteeringsExcept(new List<string>()
+            {
+                SteeringNames.LookingWhereYoureGoing
+            });
+            
+            Random random = new Random();
+            float damage = ((float) random.NextDouble() * (1f - 0.8f) + 0.8f) * _baseDamage;
+        
+            enemy.GetDamage(damage);
+            _timerAttack -= Time.deltaTime;
+        }
+        else if (_timerAttack > 0 && _timerAttack < _attackSpeed)
+        {
+            _timerAttack -= Time.deltaTime;
+        }
+        else
+        {
+            _timerAttack = _attackSpeed;
+        }
+    }
+\end{lstlisting}
+Una vez se ha terminado un combate hay 2 posibilidades. Si se sigue vivo el personaje seguirá con su funcionamiento definido; podrá ir a curarse, seguir atacando, defender, etc. La otra posibilidad que nos queda es que ese personaje haya muerto, si es el caso reaparecerá después de un tiempo en su base.
+\subsection{Condición de victoria}
+En cuanto a las condiciones de victoria se ha decidido implementar solamente una, que será la de conseguir capturar la base enemiga ya que  se supone que es la más completa a la hora de mostrar el funcionamiento de todo lo implementado en el juego pudiendo probar los comportamientos de PathFinding, influencia y el ataque entre unidades.\\
+
+Será el método \textit{captureEnemyBase} de la clase AgentNPC el que implemente este comportamiento, donde podemos ver cómo se realizan las mismas comprobaciones para que se apliquen los puntos de captura cada X segundos y  dónde se llama al método de la base enemiga que le añade puntos de captura.
+\begin{lstlisting}
+   public void CaptureEnemyBase()
+    {
+        if (Mathf.Approximately(captureTimer, captureSpeed))
+        {
+            this.RemoveAllSteeringsExcept(new List<string>()
+            {
+                SteeringNames.LookingWhereYoureGoing
+            });
+            
+            enemyBase.GetCapturePoints(5);
+            captureTimer -= Time.deltaTime;
+        }
+        else if (captureTimer > 0f && captureTimer < captureSpeed)
+        {
+            captureTimer -= Time.deltaTime;
+        }
+        else
+        {
+            captureTimer = captureSpeed;
+        }
+    }
+\end{lstlisting}
+Una vez completados los puntos de captura saltará la condición de victoria y aparecerá una ventana indicando cuál ha sido el equipo ganador. 
