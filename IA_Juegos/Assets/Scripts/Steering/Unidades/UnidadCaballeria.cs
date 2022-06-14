@@ -13,7 +13,7 @@ public class UnidadCaballeria : AgentNPC
     {
         base.Start();
         _mass = 4f;
-        _maxSpeed = 7f;
+        _maxSpeed = 4f;
         _maxRotation = 5f;
         _maxAcceleration = 4f;
         _maxAngularAcc = 10f;

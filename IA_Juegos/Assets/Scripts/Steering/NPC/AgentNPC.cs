@@ -405,10 +405,6 @@ public class AgentNPC : Agent
     // Recibir daño.
     protected void GetDamage(float damage)
     {
-        if (OnTeamBase())
-        {
-            return;
-        }
         _hpCurrent -= damage;
         if (_hpCurrent <= 0)
         {

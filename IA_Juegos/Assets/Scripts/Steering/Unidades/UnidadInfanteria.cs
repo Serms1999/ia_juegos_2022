@@ -14,7 +14,7 @@ public class UnidadInfanteria : AgentNPC
     {
         base.Start();
         _mass = 1f;
-        _maxSpeed = 3f;
+        _maxSpeed = 2f;
         _maxRotation = 2f;
         _maxAcceleration = 2f;
         _maxAngularAcc = 2f;
