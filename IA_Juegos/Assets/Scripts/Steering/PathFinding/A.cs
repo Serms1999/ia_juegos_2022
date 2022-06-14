@@ -36,7 +36,6 @@ public static class A
 
                 float newCost = current.GCost + agent.GetTerrainCost(neighbour.TerrainType);
                 
-                /*
                 float influenceValue = neighbour.InfluenceValue;
                 switch (agent.Team)
                 {
@@ -51,7 +50,6 @@ public static class A
                         break;
                     }
                 }
-                */
 
                 if (newCost < neighbour.GCost)
                 {

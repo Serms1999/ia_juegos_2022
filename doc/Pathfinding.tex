@@ -1,5 +1,7 @@
 \section{Pathfinding táctico individual}
 
+\subsection{Algoritmo A*}
+
 En esta sección se explicará el funcionamiento del pathfinding táctico individual de los personajes. Para esta labor se ha hecho uso del algoritmo A* (\ref{alg:astar}).
 
 \begin{algorithm}
@@ -43,4 +45,34 @@ En esta sección se explicará el funcionamiento del pathfinding táctico indivi
 Este algoritmo se ha implementado casi de manera literal. Su mayor cambio viene por la parte de calcular el coste del sucesor. En este caso no sólo se ha tenido en cuenta el coste de desplazarse del nodo actual al vecino, sino que se ha tenido en cuenta el tipo de terreno así como la influencia enemiga. Por lo tanto el código implementado sería:
 
 \lstinputlisting[linerange=37-52, firstnumber=37]{\ScriptsPath/Steering/PathFinding/A.cs}
+
+El camino resultante de este algoritmo se guardará en la variable \texttt{path} del agente correspondiente. 
+
+\subsection{Pathfinding basado en A*}
+
+Una vez tenemos una implementado el algoritmo A*, tenemos el camino a seguir por el agente. Este camino se compone de una lista de nodos que el agente recorrerá uno por uno.
+
+En este caso el steering de Pathfinding no tiene que generar camino a no ser que no exista uno. El steering generará un camino y posteriormente sólo irá recorriéndolo en orden.
+
+Lo primero que hace el steering es comprobar si existe camino y lo generará si este no existe.
+
+\lstinputlisting[linerange=67-73, firstnumber=67]{\ScriptsPath/Steering/PathFinding/PathFindingA.cs}
+
+La función \texttt{GeneratePath} inicializa el grafo y ejecuta el algoritmo A*.
+
+\lstinputlisting[linerange=123-127, firstnumber=123]{\ScriptsPath/Steering/PathFinding/PathFindingA.cs}
+
+La inicialización del grafo se hace estableciendo $g(n) = \infty$ para todos los nodos del grafo, y $h(n) = \infty$ para aquellos que no sean transitables. Por último se inicializan tanto el nodo inicial, $g(\texttt{inicio}) = 0$, como el final $h(\texttt{final}) = 0$. El nodo \texttt{inicial} también conserva su valor heurístico $h(\texttt{start}) \neq \infty$.
+
+\lstinputlisting[linerange=103-121, firstnumber=103]{\ScriptsPath/Steering/PathFinding/PathFindingA.cs}
+
+Una vez que ya se tiene el camino, ya sea porque lo acabamos de generar, o bien, porque ya existía comprobamos si el agente ha llegado al siguiente nodo y si este es el final. En caso de no haber llegado al final, pero sí al siguiente nodo del camino se cambia el objetivo.
+
+\lstinputlisting[linerange=75-78, firstnumber=75]{\ScriptsPath/Steering/PathFinding/PathFindingA.cs}
+
+Por último, el agente se mueve al nuevo nodo delegando en el steering Arrive.
+
+\lstinputlisting[linerange=80-95, firstnumber=80]{\ScriptsPath/Steering/PathFinding/PathFindingA.cs}
+
+En caso de que el agente estuviera en el nodo final, el nodo objetivo no cambia y por tanto se propone moverse al mismo nodo en el que está, por lo que no se produce ningún movimiento.
 

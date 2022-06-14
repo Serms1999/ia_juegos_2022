@@ -12,7 +12,6 @@
 \usepackage{longtable}
 \usepackage{blindtext}
 \usepackage[EULERGREEK]{sansmath}
-%\usepackage{menukeys}
 \usepackage{algorithm}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
@@ -21,12 +20,14 @@
 \usepackage{multicol}
 \usepackage{datetime}
 \usepackage{parskip}
+\usepackage{caption}
 \usepackage{siunitx}
 \usepackage{tikz}
 \usetikzlibrary{shapes, positioning}
 \usepackage{titling}
 \usepackage{listingsutf8}
 %\usepackage{lstautodedent} % Quitar para overleaf
+\usepackage{menukeys}
 \pagestyle{fancy}
 \setlength{\headheight}{15.71667pt}
 \usepackage{hyperref}
@@ -40,7 +41,7 @@
 \usepackage[backend=bibtex]{biblatex}
 \addbibresource{bibliografia.bib}
 
-%\renewmenumacro{\directory}{pathswithfolder}
+\renewmenumacro{\directory}{pathswithfolder}
 \floatname{algorithm}{Algoritmo}
 
 \fancyfoot{}
@@ -72,12 +73,13 @@
     %formaciones,
     %Colisiones,
     %lrta,
-    %IntroP2,
-    %InterfazPT2,
-    %CampodeBatallaYUnidades,
-    %ComportamientoTactico,
-    %ComportamientoEstrategico,
-    %SistemaCombate,
+    IntroP2,
+    InterfazPT2,
+    CampodeBatallaYUnidades,
+    ComportamientoTactico,
+    ComportamientoEstrategico,
+    SistemaCombate,
+    MapaTactico,
     Pathfinding
 }
 
@@ -138,6 +140,8 @@
 \include{ComportamientoEstrategico}
 
 \include{SistemaCombate}
+
+\include{MapaTactico}
 
 \include{Pathfinding}
 

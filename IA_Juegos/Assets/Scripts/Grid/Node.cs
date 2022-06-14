@@ -159,7 +159,7 @@ public class Node
      */
     public float TensionValue
     {
-        get { return _influences[Teams.TeamA] + _influences[Teams.TeamB]; }
+        get { return (_influences[Teams.TeamA] + _influences[Teams.TeamB]) / 2f; }
     }
     
     /**
