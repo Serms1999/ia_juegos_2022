@@ -15,10 +15,11 @@ public class GameController : MonoBehaviour
     private List<FormationManager> _formations;     // Lista de formaciones
     private Canvas endGamePanel;                    // Pantalla de final de juego
     private bool activoEstados;
-    private GameObject States = GameObject.Find("States");
+    private GameObject States;
 
     private void Awake()
     {
+        States = GameObject.Find("States");
         // Fijamos los fps a 60
         Application.targetFrameRate = 60;
         States.SetActive(false);
