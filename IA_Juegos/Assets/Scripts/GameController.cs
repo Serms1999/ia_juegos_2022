@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
         endGamePanel = GameObject.Find("Final").GetComponent<Canvas>();
         endGamePanel.enabled = false;
 
+
         GameObject waypoints = GameObject.Find("Waypoints");
         if (waypoints != null)
         {
