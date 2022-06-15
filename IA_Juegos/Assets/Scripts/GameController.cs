@@ -14,12 +14,15 @@ public class GameController : MonoBehaviour
     private CollisionDetector _collisionDetector;   // Controlador de colisiones
     private List<FormationManager> _formations;     // Lista de formaciones
     private Canvas endGamePanel;                    // Pantalla de final de juego
+    private bool activoEstados;
+    private GameObject States = GameObject.Find("States");
 
     private void Awake()
     {
         // Fijamos los fps a 60
         Application.targetFrameRate = 60;
-        
+        States.SetActive(false);
+        activoEstados = false;
         _selectedPlayers = new List<GameObject>();
         _collisionDetector = new CollisionDetector();
         _formations = new List<FormationManager>();
@@ -215,6 +218,7 @@ public class GameController : MonoBehaviour
             }
         }
 
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             // Mandamos crear una formación en triángulo
@@ -229,6 +233,22 @@ public class GameController : MonoBehaviour
             }
             formation.UpdateSlots();
             _formations.Add(formation);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (activoEstados)
+            {
+                activoEstados = false;
+                States.SetActive(activoEstados);
+            }
+            else
+            {
+                activoEstados = true;
+                States.SetActive(activoEstados);
+                
+
+            }
+
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

@@ -42,6 +42,7 @@ public class AgentNPC : Agent
     protected Building enemyBase;
 
     protected State _state;
+    protected ActionState _actionState;
 
     /**
      * @return Controlador de formaciones.
@@ -77,6 +78,11 @@ public class AgentNPC : Agent
     {
         get { return _state; }
         set { _state = value; }
+    }
+    public ActionState ActionState
+    {
+        get { return _actionState; }
+        set { _actionState = value; }
     }
 
     /**
@@ -245,6 +251,7 @@ public class AgentNPC : Agent
         _timerAttack = _attackSpeed;
         healTimer = healSpeed;
         this._state = State.Attack;
+        this._actionState = ActionState.GoEnemyBase;
     }
 
     // Use this for initialization
@@ -440,6 +447,7 @@ public class AgentNPC : Agent
         {
             _timerAttack = _attackSpeed;
         }
+        this._actionState = ActionState.AttackEnemy;
     }
 
     // Obtenemos una lista de enemigos a una distancia a la que podemos atacar.
@@ -472,7 +480,9 @@ public class AgentNPC : Agent
      */
     public void Defend()
     {
+        this._actionState = ActionState.Defend;
         MoveToTarget(baseTeam);
+
     }
     
     /**
@@ -480,6 +490,7 @@ public class AgentNPC : Agent
      */
     public void GoToEnemyBase()
     {
+        this._actionState = ActionState.GoEnemyBase;
         MoveToTarget(enemyBase);
     }
 
@@ -526,6 +537,7 @@ public class AgentNPC : Agent
      */
     public void GoHealing()
     {
+        this._actionState = ActionState.GoHealing;
         MoveToTarget(healingPoint);
     }
 
@@ -534,6 +546,7 @@ public class AgentNPC : Agent
      */
     public void Heal()
     {
+        this._actionState = ActionState.Heal;
         if (_hpCurrent >= _hpMax)
         {
             return;
@@ -705,5 +718,6 @@ public class AgentNPC : Agent
         {
             captureTimer = captureSpeed;
         }
+        this._actionState = ActionState.CaptureBase;
     }
 }
