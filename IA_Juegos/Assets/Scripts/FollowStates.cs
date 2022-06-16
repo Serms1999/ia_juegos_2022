@@ -1,8 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ActionState
+{
+    AttackEnemy = 0,
+    CaptureBase = 1,
+    Defend = 2,
+    GoHealing = 3,
+    GoEnemyBase = 4,
+    Heal = 5
+}
 
 public class FollowStates : MonoBehaviour
 {
@@ -14,9 +25,8 @@ public class FollowStates : MonoBehaviour
     public RawImage img;
 
     private Texture[] myTextures = new Texture[6];
-    // Start is called before the first frame update
 
-    void Start()
+    private void Start()
     {
         cam = Camera.main;
         myTextures[0] = Resources.Load("AttackEnemy") as Texture;
@@ -25,61 +35,11 @@ public class FollowStates : MonoBehaviour
         myTextures[3] = Resources.Load("GoHealing") as Texture;
         myTextures[4] = Resources.Load("GoToEnemyBase") as Texture;
         myTextures[5] = Resources.Load("Heal") as Texture;
-
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Vector3 pos = cam.WorldToScreenPoint(lookAt.transform.position + offset);
-
-        if (transform.position != pos)
-            transform.position = pos;
-
-        switch (lookAt.ActionState)
-        {
-            
-            case ActionState.AttackEnemy:
-                img.texture = myTextures[0];
-
-                // code block
-                break;
-            case ActionState.CaptureBase:
-                img.texture = myTextures[1];
-
-                // code block
-                break;
-            case ActionState.Defend:
-                img.texture = myTextures[2];
-
-                // code block
-                break;
-            case ActionState.GoHealing:
-                img.texture = myTextures[3];
-
-                // code block
-                break;
-            case ActionState.GoEnemyBase:
-                img.texture = myTextures[4];
-
-                // code block
-                break;
-            case ActionState.Heal:
-                img.texture = myTextures[4];
-
-                // code block
-                break;
-            default:
-                // code block
-                break;
-        }
-
-    }
-
-    void changeImage(int x)
-    {
-        img.texture = myTextures[x];
-        
-
+        transform.position = cam.WorldToScreenPoint(lookAt.Position + offset);
+        img.texture = myTextures[(int) lookAt.ActionState];
     }
 }
