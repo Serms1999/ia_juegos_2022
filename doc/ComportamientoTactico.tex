@@ -1,7 +1,6 @@
 \section{Comportamiento táctico}
 
-% TODO quitar
-% Para el funcionamiento del juego hemos diseñado un comportamiento y características propias de cada personaje. Para esto hemos usado una herramienta llamada Behavior Trees \cite{uniBT}, el cual nos permite crear un árbol de decisiones sobre cada unidad. Dentro de estos árboles podemos encontrar distintos nodos. Para poder entender mejor estos árboles de comportamiento primero veremos los Scripts que encontramos dentro  del directorio \directory{Assets/Scripts/Tactica/Behaviour} del proyecto, creados para las acciones y las condiciones que serán la clave del comportamiento `inteligente' de cada personaje.
+Para el funcionamiento del juego hemos diseñado un comportamiento y características propias de cada personaje. Para esto hemos usado una herramienta llamada Behavior Trees \cite{uniBT}, el cual nos permite crear un árbol de decisiones sobre cada unidad. Dentro de estos árboles podemos encontrar distintos nodos. Para poder entender mejor estos árboles de comportamiento primero veremos los Scripts que encontramos dentro  del directorio \directory{Assets/Scripts/Tactica/Behaviour} del proyecto, creados para las acciones y las condiciones que serán la clave del comportamiento `inteligente' de cada personaje.
 
 \subsection{Condiciones}
 
@@ -30,26 +29,29 @@ En lo que respecta a acciones tenemos 6 scripts distintos que en este caso hered
 \begin{itemize}
     \item \textbf{Atacar a un enemigo} (\texttt{AttackEnemy}): el agente ataca al enemigo más cercano que esté en su rango de ataque. Estos ataques se producen cada cierto número de segundos, que serán la velocidad de ataque del agente.
     
-        \lstinputlisting[linerange=420-443, firstnumber=420]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
+        \lstinputlisting[linerange=432-456, firstnumber=432]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
     
     \item \textbf{Capturar base enemiga} (\texttt{CaptureEnemyBase}): el agente aporta puntos de captura a la base enemiga mientras se encuentre en ella.
         
-        \lstinputlisting[linerange=688-708, firstnumber=688]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
+        \lstinputlisting[linerange=706-727, firstnumber=706]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
         
     \item \textbf{Curarse} (\texttt{Heal}): el agente obtiene puntos de salud del punto de curación. Estos puntos de salud se recuperan en forma de pulsos cada cierto tiempo.
         
-        \lstinputlisting[linerange=535-560, firstnumber=535]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
+        \lstinputlisting[linerange=552-578, firstnumber=552]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
         
     \item \textbf{Ir a una estructura}: el agente se dirige hacia una estructura como la base enemiga (\texttt{GoToEnemyBase}), su propia base (\texttt{Defend}) o el punto de curación (\texttt{GoHealing}).
     
-        \lstinputlisting[linerange=356-371, firstnumber=356]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
+        \lstinputlisting[linerange=363-378, firstnumber=363]{\ScriptsPath/Steering/NPC/AgentNPC.cs}
 \end{itemize}
 
 
 \subsection{Comportamiento de los agentes}
-Ahora que ya hemos visto cómo serían todos los elementos del comportamiento táctico de los personajes, podemos ver cómo se han juntado todos estos elementos para crear los árboles de comportamiento de los distintos tipos de unidades.
+
+Ahora que ya se ha visto cómo serían todos los elementos del comportamiento táctico de los personajes, se procederá ver cómo se han unido todos estos elementos para crear los árboles de comportamiento de los distintos tipos de unidades.
+
 \subsubsection{Infantería}
-Esta unidad la hemos interpretado con una máxima prioridad sobre ganar la partida. Priorizará capturar la base enemiga sobre cualquier cosa. En \textbf{modo ataque} la unidad prioriza capturar la base enemiga sobre todas las cosas, seguido de atacar a los enemigos. Y después pensará en su salud, pero solo cuando no pueda capturar o atacara a un enemigo. En\textbf{ modo defensa} defenderá atacando a los enemigos que vea y no pensará en curarse. Por ultimo, en \textbf{modo guerra total} se actuará como en ataque pero sin pensar en curarse.
+
+Esta unidad se ha interpretado con una máxima prioridad sobre ganar la partida. Priorizará capturar la base enemiga sobre cualquier cosa. En \textbf{modo ataque} la unidad prioriza capturar la base enemiga sobre todas las cosas, seguido de atacar a los enemigos. Y después pensará en su salud, pero solo cuando no pueda capturar o atacara a un enemigo. En\textbf{modo defensa} defenderá atacando a los enemigos que vea y no pensará en curarse. Por ultimo, en \textbf{modo guerra total} actuará como en ataque pero sin pensar en curarse.
 
 \begin{figure}[H]
     \centering
@@ -90,7 +92,8 @@ Esta unidad la hemos interpretado con una máxima prioridad sobre ganar la parti
 \end{figure}
 
 \subsubsection{Lancero}
-Esta unidad funciona de forma similar a la infantería, solo que la hemos ideado como acompañamiento de esta. En el \textbf{modo ataque} y \textbf{modo guerra total} priorizaran atacar a enemigos antes que capturar, pero siempre priorizan atacar a los enemigos en a la base frente a su salud. En el \textbf{modo defensa} se comportará igual que en la infantería. 
+
+Esta unidad funciona de forma similar a la infantería, solo que ha sido ideada como acompañamiento de esta. En el \textbf{modo ataque} y \textbf{modo guerra total} priorizaran atacar a enemigos antes que capturar, pero siempre priorizan atacar a los enemigos en a la base frente a su salud. En el \textbf{modo defensa} se comportará igual que en la infantería. 
 
 \begin{figure}[H]
     \centering
@@ -131,7 +134,8 @@ Esta unidad funciona de forma similar a la infantería, solo que la hemos ideado
 \end{figure}
 
 \subsubsection{Arquero}
-Para la unidad de tipo arquero, hemos ideado que sea una unidad "cobarde", esta prioriza su vida antes que el trabajo en equipo. A diferencia de las otras unidades esta en el \textbf{modo ataque} buscará atacar y capturar la base enemiga, pero siempre que su vida baje peligrosamente huirá a curarse. En el \textbf{modo defensa} también encontramos esta característica, si la unidad se ve muy dañada, irá a curarse a diferencia de las anteriores unidades que simplemente defendían.
+
+Para la unidad de tipo arquero, se ha pensado que sea una unidad ``cobarde''. Esta prioriza su vida antes que el trabajo en equipo. A diferencia de las otras unidades cuando está en \textbf{modo ataque} buscará atacar y capturar la base enemiga, pero siempre que su vida baje peligrosamente huirá a curarse. En \textbf{modo defensa} también encontramos esta característica, si la unidad se ve muy dañada, irá a curarse a diferencia de las anteriores unidades que simplemente defendían.
 
 \begin{figure}[H]
     \centering
@@ -176,7 +180,10 @@ Para la unidad de tipo arquero, hemos ideado que sea una unidad "cobarde", esta 
 \end{figure}
 
 \subsubsection{Caballería} 
-Esta unidad la podríamos considerar la mas distintas. de las 4. Su comportamiento se basa en desplazarse en modo de "patrulla" yendo y viniendo a la base. Irá compronbando que se aleje demasiado de su base para volver, y si se encuentra a cualquier enemigo le atacará. Este comportamiendo lo mantendrá siempre que esté \textbf{modo ataque} y en \textbf{modo defensa}. Pero si le ponemos \textbf{modo guerra total} simplemente atacara la base. Cabe recalcar que esta unidad al centrarse en patrullar, nunca llegará a atacar la base enemiga, ni a defender su propia base.
+
+Esta unidad podría considerarse la más distinta de todas. Su comportamiento se basa en desplazarse en modo de ``patrulla'' yendo y viniendo de su propia base. Comprobará si está demasiado lejos de su base en todo momento, y en caso de estarlo, procederá a regresar. Hay que remarcar que si se cruza con un enemigo procederá a atacarlo.
+
+Este comportamiento se mantendrá siempre que esté en \textbf{modo ataque} y en \textbf{modo defensa}. En caso de estar en \textbf{modo guerra total} simplemente atacará la base enemiga. Cabe recalcar que esta unidad al centrarse en patrullar, nunca llegará a atacar la base enemiga, ni a defender su propia base.
 
 \begin{figure}[H]
     \centering
@@ -197,8 +204,11 @@ Esta unidad la podríamos considerar la mas distintas. de las 4. Su comportamien
             \node (11) at (9,7) {Atacar enemigo};
             \node (12) at (9,4.1) {Ir a la base enemiga};
             
-            \node (14) at (3.75,1.5) {¿Lejos de la base?}; 
-            \node (17) at (9,1.25) {Defender};
+            \node (14) at (3.75,1.5) {¿Enemigo Cerca?}; 
+            \node (17) at (9,1.25) {Atacar enemigo};
+            \node (27) at (3.75,0.2) {¿Lejos de la base?}; 
+            \node (28) at (9,0) {Defender};
+            \node (29) at (3.75,-1.1) {¿Cerca de la base?}; 
             \node (21) at (9,-1.4) {Ir a la base enemiga};
             
             \node (22) at (3,-3.7) {¿Enemigo cerca?};

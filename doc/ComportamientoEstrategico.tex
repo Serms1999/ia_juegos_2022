@@ -1,11 +1,15 @@
  \section{Comportamiento Estratégico}
+ 
  \subsection{Modos de comportamiento}
+ 
  El comportamiento estratégico implementado a nivel de bando/grupo se ha hecho de forma que tenemos varios modos.
+ 
  \begin{itemize}
      \item Ataque: El bando que esté en modo ataque irá a por la base enemiga y todo aquel que se encuentre por su paso lo tratará de eliminar.
      \item Defensa: Este modo es para que el equipo seleccionado se centre en defender su base de los enemigos y priorizarán también la cura de los personajes.
      \item Guerra Total: En este modo ambos equipos pasan al ataque y ganará el primero en conquistar la base enemiga
  \end{itemize}
+ 
 La manera en la que se adapta el comportamiento según el modo es sencilla basándonos en el uso de la librería Behaviour Trees \cite{uniBT}. Tenemos la clase \texttt{State} que recoge todos los modos de juego y cada personaje tendrá un atributo de este tipo.
 
 \lstinputlisting[linerange=5-10, firstnumber=5]{\ScriptsPath/Tactica/State.cs}

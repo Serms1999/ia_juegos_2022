@@ -236,22 +236,18 @@ public class GameController : MonoBehaviour
             formation.UpdateSlots();
             _formations.Add(formation);
         }
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (activoEstados)
-            {
-                activoEstados = false;
-                States.SetActive(activoEstados);
-            }
-            else
-            {
-                activoEstados = true;
-                States.SetActive(activoEstados);
-                
-
-            }
-
+            ToggleStates();
         }
+        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            activoEstados = false;
+            States.SetActive(activoEstados);
+        }
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             // Mandamos crear una formación en columnas
@@ -276,6 +272,12 @@ public class GameController : MonoBehaviour
                 formation.UpdateSlots();
             }
         }
+    }
+
+    public void ToggleStates()
+    {
+        activoEstados = !activoEstados;
+        States.SetActive(activoEstados);
     }
 
     /**
