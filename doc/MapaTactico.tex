@@ -1,7 +1,7 @@
 \section{Mapa Táctico}
 
 En nuestro juego RTS se ha implementado un mini mapa que nos permite tener en
-la esquina inferior derecha los distintos mapas de influencia y ademáas la IA táactica se
+la esquina inferior derecha los distintos mapas de influencia y además la IA táctica se
 puede adaptar su comportamiento según esta influencia. En este apartado se verán los
 distintos mapas implementados y su influencia táctica.
 
@@ -42,7 +42,7 @@ Para calcular la influencia de los distintos equipos usamos la función \texttt{
 
 Como se puede ver en el código para extender la influencia se hace uso de la función \texttt{ExtendInfluence}. Esta función recorre todo el terreno y asigna una influencia determinada dependiendo de la distancia. La fórmula usada para calcular como se extiende la influencia es la siguiente.
 \begin{gather*}
-    Influencia_{i,j} = \frac{Influencia_{base}}{1 + d\left((i,j), (x,y)\right)}
+    Influencia_{i,j} = \frac{Influencia_{base}}{\left(1 + d\left((i,j), (x,y)\right)\right)^{1.25}}
 \end{gather*}
 donde $i,j$ representan a la casilla dentro del terreno, $x,y$ al objeto que representa el centro de donde extiende, e $Influencia_{base}$ representa la influencia que desprende ese objeto. Por último, comentar que se utiliza la distancia de Chevychev para este cálculo.
 \begin{gather*}

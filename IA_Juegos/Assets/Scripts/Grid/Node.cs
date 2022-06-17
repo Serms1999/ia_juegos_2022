@@ -270,23 +270,17 @@ public class Node
         {
             case MapType.Influence:
             {
-                switch (InfluenceValue)
+                if (InfluenceValue > 0)
                 {
-                    case < 0:
-                    {
-                        color = Color.red;
-                        break;
-                    }
-                    case > 0:
-                    {
-                        color = Color.blue;
-                        break;
-                    }
-                    default:
-                    {
-                        color = Color.gray;
-                        break;
-                    }
+                    color = Color.red;
+                }
+                else if (InfluenceValue < 0)
+                {
+                    color = Color.blue;
+                }
+                else
+                {
+                    color = Color.gray;
                 }
 
                 value = Mathf.Abs(InfluenceValue);

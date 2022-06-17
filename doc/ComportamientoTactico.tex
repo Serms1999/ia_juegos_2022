@@ -9,7 +9,7 @@ En total contamos con 13 scripts de condiciones distintos que heredan de la clas
 \begin{itemize}
     \item \textbf{Comprobaciones de estado}: para este cometido se tienen 3 nodos distintos. Cada uno comprueba si el estado actual del personaje es ataque (\texttt{AttackMode}), defensa (\texttt{DefenseMode}), o bien, guerra total (\texttt{Total War}).
     \item \textbf{Comprobación de muerte}: esta labor recae sobre un nodo (\texttt{IsAlive}) que comprueba si el agente está vivo. Esta comprobación controla la ejecución del resto del árbol.
-    \item \textbf{Comprobaciones de salud}: tenemos dos comprobaciones sobre el estado de salud del personaje. Una de ellas (\texttt{LowHP}) comprueba si la salud del enemigo ha caído por de la mitad de los puntos totales. La otra (\texttt{NotFullHP}) comprueba si un personaje no tiene la totalidad de los puntos de salud.
+    \item \textbf{Comprobaciones de salud}: tenemos dos comprobaciones sobre el estado de salud del personaje. Una de ellas (\texttt{LowHP}) comprueba si la salud del enemigo ha caído por debajo de la mitad de los puntos totales. La otra (\texttt{NotFullHP}) comprueba si un personaje no tiene la totalidad de los puntos de salud.
     \item \textbf{Comprobaciones de localización del personaje}: esta es la categoría donde más nodos distintos hay. Los podemos dividir en 3 grupos, según las distancias que comprueban:
         \begin{itemize}
             \item \textbf{Comprobación de localización exacta}: con estos nodos se comprueba si el personaje está en una estructura concreta. En esta categoría tenemos \texttt{OnHealingPoint} y \texttt{OnEnemyBase}. 
@@ -47,11 +47,11 @@ En lo que respecta a acciones tenemos 6 scripts distintos que en este caso hered
 
 \subsection{Comportamiento de los agentes}
 
-Ahora que ya se ha visto cómo serían todos los elementos del comportamiento táctico de los personajes, se procederá ver cómo se han unido todos estos elementos para crear los árboles de comportamiento de los distintos tipos de unidades.
+Ahora que ya se ha visto cómo serían todos los elementos del comportamiento táctico de los personajes, se procederá a  ver cómo se han unido todos estos elementos para crear los árboles de comportamiento de los distintos tipos de unidades.
 
 \subsubsection{Infantería}
 
-Esta unidad se ha interpretado con una máxima prioridad sobre ganar la partida. Priorizará capturar la base enemiga sobre cualquier cosa. En \textbf{modo ataque} la unidad prioriza capturar la base enemiga sobre todas las cosas, seguido de atacar a los enemigos. Y después pensará en su salud, pero solo cuando no pueda capturar o atacara a un enemigo. En\textbf{modo defensa} defenderá atacando a los enemigos que vea y no pensará en curarse. Por ultimo, en \textbf{modo guerra total} actuará como en ataque pero sin pensar en curarse.
+Esta unidad se ha interpretado con una máxima prioridad sobre ganar la partida. Priorizará capturar la base enemiga sobre cualquier cosa. En \textbf{modo ataque} la unidad prioriza capturar la base enemiga sobre todas las cosas, seguido de atacar a los enemigos. Y después pensará en su salud, pero solo cuando no pueda capturar o atacar a un enemigo. En \textbf{modo defensa} defenderá atacando a los enemigos que vea y no pensará en curarse. Por ultimo, en \textbf{modo guerra total} actuará como en ataque pero sin pensar en curarse.
 
 \begin{figure}[H]
     \centering
@@ -74,7 +74,7 @@ Esta unidad se ha interpretado con una máxima prioridad sobre ganar la partida.
             
             \node (13) at (3,1.6) {¿Enemigo cerca?};
             \node (14) at (3,2.9) {¿En base enemiga?};
-            \node[text width = 4.35cm] (14) at (3.75,0.2) {¿En el punto de curación y pocos puntos de vida?};
+            \node[text width = 4.35cm] (14) at (3.75,0.2) {¿En el punto de curación y  no todos puntos de vida?};
             \node (16) at (3.4,-1.1) {¿Pocos puntos de vida?};
             \node (17) at (9,1.25) {Atacar enemigo};
             \node (18) at (9,2.6) {Capturar base enemiga};
@@ -116,7 +116,7 @@ Esta unidad funciona de forma similar a la infantería, solo que ha sido ideada 
             
             \node (13) at (3,2.9) {¿Enemigo cerca?};
             \node (14) at (3.2,0.2) {¿En base enemiga?}; 
-            \node[text width = 4.35cm] (14) at (3.75,1.6) {¿En el punto de curación y pocos puntos de vida?}; 
+            \node[text width = 4.35cm] (14) at (3.75,1.6) {¿En el punto de curación y  no todos puntos de vida?}; 
             \node (16) at (3,-1.1) {¿Pocos puntos de vida?};
             \node (17) at (9,1.25) {Curarse};
             \node (18) at (9,2.6) {Atacar enemigo};
@@ -158,7 +158,7 @@ Para la unidad de tipo arquero, se ha pensado que sea una unidad ``cobarde''. Es
             
             \node (13) at (3,1.2) {¿Enemigo cerca?};
             \node (14) at (3.2,0) {¿En base enemiga?}; 
-            \node[text width = 4.35cm] (14) at (3,4) {¿En el punto de curación y pocos puntos de vida?}; 
+            \node[text width = 4.35cm] (14) at (3,4) {¿En el punto de curación y  no todos puntos de vida?}; 
             \node (16) at (3,2.6) {¿Pocos puntos de vida?};
             \node (17) at (8.2,3.7) {Curarse};
             \node (18) at (8.2 ,0.9) {Atacar enemigo};
@@ -167,7 +167,7 @@ Para la unidad de tipo arquero, se ha pensado que sea una unidad ``cobarde''. Es
             \node (21) at (8.2, 2.3) {Ir al punto de curación};
             
             \node (22) at (3, -4.5) {¿Pocos puntos de vida?};
-            \node[text width = 4.35cm] (23) at (3,-3.2) {¿En el punto de curación y pocos puntos de vida?}; 
+            \node[text width = 4.35cm] (23) at (3,-3.2) {¿En el punto de curación y  no todos puntos de vida?}; 
             \node (24) at (3, -6.2) {¿Enemigo cerca?};
             \node (25) at (8.2, -6.5) {Atacar enemigo};
             \node (26) at (8.2, -7.8) {Defender};
