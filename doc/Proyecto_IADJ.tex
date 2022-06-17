@@ -74,14 +74,15 @@
     %formaciones,
     %Colisiones,
     %lrta,
-    %IntroP2,
+    IntroP2,
     InterfazPT2,
-    %CampodeBatallaYUnidades,
-    %ComportamientoTactico,
-    %ComportamientoEstrategico,
-    %SistemaCombate,
-    %MapaTactico,
-    %Pathfinding
+    CampodeBatallaYUnidades,
+    ComportamientoTactico,
+    ComportamientoEstrategico,
+    SistemaCombate,
+    MapaTactico,
+    Pathfinding,
+    Depuracion
 }
 
 \begin{document}
@@ -119,16 +120,17 @@
 \listoffigures
 \clearpage
 \pagestyle{fancy}
+\setcounter{page}{1}
 
-\include{Introduccion}
+%\include{Introduccion}
 
-\input{Steerings}
+%\input{Steerings}
 
-\include{formaciones}
+%\include{formaciones}
 
-\include{Colisiones}
+%\include{Colisiones}
 
-\include{lrta}
+%\include{lrta}
 
 \include{IntroP2}
 
@@ -145,6 +147,8 @@
 \include{MapaTactico}
 
 \include{Pathfinding}
+
+\include{Depuracion}
 
 \printbibliography[heading = bibintoc]
 
